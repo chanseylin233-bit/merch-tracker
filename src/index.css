@@ -262,12 +262,238 @@ body[data-theme='clean-purple'] .stats__export-btn {
 }
 body[data-theme='clean-purple'] .stats__export-btn:active { background: rgba(124,58,237,.06); }
 
+/* ══════════════════════════════════════
+   journal 主题：手账本风格
+   ══════════════════════════════════════ */
+body[data-journal] #root::before {
+  display: none;
+}
+
+/* ── 整体背景：牛皮纸色 + 外框模拟 ── */
+body[data-journal] {
+  --border: #d4c4a8;
+}
+body[data-journal] #root {
+  background: #fdf8ef;
+  border-left: 6px solid #c4a574;
+  border-right: 6px solid #c4a574;
+  box-shadow:
+    inset 0 0 0 2px #e8dcc8,
+    0 0 40px rgba(139,109,66,.12);
+  border-radius: 24px;
+  margin: 10px auto;
+  max-width: calc(480px + 12px);
+}
+
+/* ── TabBar：木质底 + 绿色按钮 ── */
+body[data-journal] .tab-bar {
+  background: linear-gradient(180deg, #e8dcc8, #ddd2bc);
+  border-top-color: #c4a574;
+  border-radius: 0 0 18px 18px;
+  box-shadow: 0 -3px 16px rgba(139,109,66,.15);
+}
+body[data-journal] .tab-bar__item--add {
+  background: linear-gradient(135deg, #7a9e7e, #5a8a6a);
+  box-shadow:
+    0 4px 14px rgba(122,158,126,.35),
+    0 2px 5px rgba(90,138,106,.2),
+    inset 0 1px 0 rgba(255,255,255,.25);
+  border-color: #fff;
+}
+body[data-journal] .tab-bar__item.active {
+  background: rgba(122,158,126,.15);
+  color: #4a7a4e;
+  font-weight: 700;
+}
+body[data-journal] .tab-bar__item:not(.active) {
+  color: #8c7b68;
+}
+
+/* ── 卡片：米白纸张 + 虚线边框感 ── */
+body[data-journal] .home__stat,
+body[data-journal] .order-card,
+body[data-journal] .stats__card,
+body[data-journal] .settings__card,
+body[data-journal] .detail__section {
+  background: #fffdf7;
+  border-color: #e8dcc8;
+  box-shadow:
+    0 2px 8px rgba(139,109,66,.06),
+    0 1px 2px rgba(0,0,0,.02);
+  border-radius: 16px;
+}
+body[data-journal] .order-card::before {
+  background: linear-gradient(90deg, #7a9e7e, #9b7bb8, #c4a574);
+  height: 3px;
+}
+
+/* 统计卡片图标 — 手绘圆底 */
+body[data-journal] .home__stat--amber .home__stat-icon { background: #f0ebe0; color: #b08d55; }
+body[data-journal] .home__stat--pink .home__stat-icon { background: #efe8f0; color: #9b7bb8; }
+body[data-journal] .home__stat--blue .home__stat-icon { background: #eaf0e8; color: #5a8a6a; }
+
+/* 三小卡片配色（淡彩纸质感）*/
+body[data-journal] .stats__card--blue {
+  background: #f0f5ee;
+  border-color: rgba(122,158,126,.25);
+}
+body[data-journal] .stats__card--blue .stats__metric-value { color: #4a7a4e; }
+body[data-journal] .stats__card--pink {
+  background: #faf0f5;
+  border-color: rgba(155,123,184,.2);
+}
+body[data-journal] .stats__card--pink .stats__metric-value { color: #8b6aa0; }
+body[data-journal] .stats__card--purple {
+  background: #f5f0ea;
+  border-color: rgba(196,165,116,.25);
+}
+body[data-journal] .stats__card--purple .stats__metric-value { color: #8c7355; }
+
+/* 概览卡片 */
+body[data-journal] .stats__card--gradient {
+  background: #f8f3eb;
+  border-color: #e8dcc8;
+  box-shadow: 0 2px 10px rgba(139,109,66,.07);
+}
+
+/* 实际花费横条 */
+body[data-journal] .stats__net-cost-bar {
+  background: linear-gradient(135deg, #efe8f0, #e8dfd5);
+  border-color: rgba(155,123,184,.15);
+}
+body[data-journal] .stats__net-cost-num { color: #8b6aa0; }
+
+/* 年度切换器 */
+body[data-journal] .stats__year-switch {
+  border-color: #e8dcc8;
+  box-shadow: 0 1px 6px rgba(139,109,66,.06);
+  background: #fffdf7;
+}
+body[data-journal] .stats__year-btn { color: #7c6a58; }
+
+/* 头部 */
+body[data-journal] .records__header {
+  background: rgba(255,253,247,.92);
+  border-radius: 0;
+}
+body[data-journal] .records__search,
+body[data-journal] .records__filter-btn {
+  background: #fffdf7;
+  border-color: #e8dcc8;
+  color: #3d3428;
+}
+body[data-journal] .records__search:focus {
+  border-color: #7a9e7e;
+  box-shadow: 0 0 0 3px rgba(122,158,126,.12);
+}
+body[data-journal] .records__select-btn {
+  color: #5c4d3d;
+  background: rgba(124,106,88,.06);
+  border-color: rgba(196,165,116,.4);
+}
+body[data-journal] .records__select-btn.active {
+  background: #7a9e7e;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(122,158,126,.25);
+}
+body[data-journal] .records__active-chip {
+  background: rgba(122,158,126,.1);
+  color: #4a7a4e;
+  border-color: rgba(122,158,126,.2);
+}
+
+/* 类型标签（设置页）— 紫色系柔和 */
+body[data-journal] .settings__type-chip:nth-child(1) { background: #9b7bb8; } /* 收藏卡-紫 */
+body[data-journal] .settings__type-chip:nth-child(2) { background: #b8a0c4; } /* 扑克牌-浅紫 */
+body[data-journal] .settings__type-chip:nth-child(3) { background: #c4b0cc; } /* 旋转立牌-更浅 */
+body[data-journal] .settings__type-chip:nth-child(4) { background: #ddd4dc; color: #5c4d3d !important; } /* 色纸-极浅 */
+body[data-journal] .settings__type-chip:nth-child(5) { background: #efe8f0; color: #7c6a58 !important; } /* 明信片-最浅 */
+body[data-journal] .settings__type-chip:nth-child(6) { background: #8b9aaa; } /* 镭射票-灰蓝 */
+body[data-journal] .settings__type-chip:nth-child(7) { background: #b8a0c4; } /* 透卡-紫 */
+body[data-journal] .settings__type-chip:nth-child(n+8) { background: #a09888; }
+
+body[data-journal] .settings__btn--gradient {
+  background: linear-gradient(135deg, #9b7bb8, #7a6a98);
+  box-shadow: 0 3px 12px rgba(155,123,184,.28);
+}
+body[data-journal] .settings__input:focus {
+  border-color: #7a9e7e;
+  box-shadow: 0 0 0 3px rgba(122,158,126,.12);
+}
+
+/* FilterDrawer */
+body[data-journal] .filter-drawer__chip.active {
+  background: linear-gradient(135deg, #7a9e7e, #5a8a6a);
+  box-shadow: 0 3px 10px rgba(122,158,126,.25);
+}
+body[data-journal] .filter-drawer__chip.active:hover {
+  box-shadow: 0 3px 14px rgba(122,158,126,.32);
+}
+body[data-journal] .filter-drawer__btn--apply {
+  background: linear-gradient(135deg, #7a9e7e, #5a8a6a);
+  box-shadow: 0 3px 12px rgba(122,158,126,.22);
+}
+
+/* OrderCard 状态标签 */
+body[data-journal] .order-card__tag--type {
+  background: rgba(122,158,126,.1);
+  color: #4a7a4e;
+  border-color: rgba(122,158,126,.2);
+}
+body[data-journal] .order-card__next { color: #5c4d3d; font-weight: 600; }
+
+/* Detail 页面 */
+body[data-journal] .detail__quick-btn--next {
+  background: linear-gradient(135deg, #7a9e7e, #9bbb9e);
+  box-shadow: 0 2px 8px rgba(122,158,126,.22);
+}
+body[data-journal] .detail__action-btn:not(.detail__action-btn--secondary):not(.detail__action-btn--danger) {
+  background: #7a9e7e;
+}
+body[data-journal] .detail__next-action span { color: #5c4d3d; }
+body[data-journal] .detail__back { color: #7c6a58; }
+body[data-journal] .detail__tag { background: rgba(122,158,126,.1); color: #4a7a4e; }
+
+/* AddEdit 按钮 */
+body[data-journal] .add__btn--save {
+  background: linear-gradient(135deg, #7a9e7e, #5a8a6a);
+  box-shadow: 0 3px 12px rgba(122,158,126,.22);
+}
+
+/* 导出按钮 */
+body[data-journal] .stats__export-btn {
+  border-color: #9b7bb8;
+  color: #8b6aa0;
+}
+body[data-journal] .stats__export-btn:active { background: rgba(155,123,184,.06); }
+
 /* 表单 focus */
-body[data-theme='clean-purple'] .form-input:focus,
-body[data-theme='clean-purple'] .form-select:focus,
-body[data-theme='clean-purple'] .form-textarea:focus {
-  border-color: #7c3aed;
-  box-shadow: 0 0 0 3px rgba(124,58,237,.1);
+body[data-journal] .form-input:focus,
+body[data-journal] .form-select:focus,
+body[data-journal] .form-textarea:focus {
+  border-color: #7a9e7e;
+  box-shadow: 0 0 0 3px rgba(122,158,126,.12);
+}
+
+/* 页面标题 — 手写体感 */
+body[data-journal] .settings__title,
+body[data-journal] .home__title,
+body[data-journal] .records__title,
+body[data-journal] .stats__title {
+  color: #3d3428;
+}
+
+/* 设置页卡片图标背景 */
+body[data-journal] .settings__card-icon--pink { background: linear-gradient(135deg, #f0ebe0, #e8dcc8); }
+body[data-journal] .settings__card-icon--red { background: linear-gradient(135deg, #fef0ef, #f5e0dd); }
+body[data-journal] .settings__card-icon--blue { background: linear-gradient(135deg, #eaf0e8, #dde8da); }
+body[data-journal] .settings__card-icon--warn { background: linear-gradient(135deg, #f5f0e0, #ede4cc); }
+body[data-journal] .settings__card-icon--purple { background: linear-gradient(135deg, #efe8f0, #e8dde8); }
+
+/* 危险操作卡片 */
+body[data-journal] .settings__card--danger {
+  border-color: rgba(196,92,74,.15);
+  background: linear-gradient(180deg, #fffdf7 0%, #fdf8ef 100%);
 }
 
 /* 通用表单样式 */

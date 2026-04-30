@@ -169,7 +169,7 @@ export interface Order {
 }
 
 // ── Theme ─────────────────────────────────────────────────────
-export type Theme = 'warm-pink' | 'clean-purple'
+export type Theme = 'warm-pink' | 'clean-purple' | 'journal'
 
 // ── App State ───────────────────────────────────────────────────
 export interface AppState {

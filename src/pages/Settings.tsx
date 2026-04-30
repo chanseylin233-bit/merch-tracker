@@ -133,6 +133,14 @@ export function SettingsPage() {
             <span className="settings__theme-name">极简紫</span>
             {theme === 'clean-purple' && <span className="settings__theme-check">✓</span>}
           </button>
+          <button
+            className={`settings__theme-opt ${theme === 'journal' ? 'active' : ''}`}
+            onClick={() => setTheme('journal')}
+          >
+            <span className="settings__theme-preview settings__theme-preview--journal" />
+            <span className="settings__theme-name">手账本</span>
+            {theme === 'journal' && <span className="settings__theme-check">✓</span>}
+          </button>
         </div>
       </div>
 

@@ -58,6 +58,26 @@ const THEME_VARS: Record<Theme, Record<string, string>> = {
     '--card': '#ffffff',
     '--border': '#e2e8f0',
   },
+  'journal': {
+    '--primary': '#7c6a58',
+    '--primary-soft': 'rgba(124,106,88,.08)',
+    '--primary-mid': '#5c4d3d',
+    '--pink': '#9b7bb8',
+    '--pink-soft': 'rgba(155,123,184,.12)',
+    '--accent': '#7a9e7e',
+    '--accent-soft': 'rgba(122,158,126,.12)',
+    '--blue': '#7a9e7e',
+    '--blue-soft': 'rgba(122,158,126,.12)',
+    '--danger': '#c45c4a',
+    '--success': '#5a8a6a',
+    '--text': '#3d3428',
+    '--text-muted': '#6b5d4d',
+    '--text-hint': '#8c7b68',
+    '--bg': '#fdf8ef',
+    '--bg-solid': '#fdf8ef',
+    '--card': '#fffdf7',
+    '--border': '#e8dcc8',
+  },
 }
 
 function applyTheme(theme: Theme) {
@@ -68,8 +88,13 @@ function applyTheme(theme: Theme) {
   // Theme-specific body-level changes
   if (theme === 'clean-purple') {
     document.body.setAttribute('data-theme', 'clean-purple')
+    document.body.removeAttribute('data-journal')
+  } else if (theme === 'journal') {
+    document.body.setAttribute('data-journal', '')
+    document.body.removeAttribute('data-theme')
   } else {
     document.body.removeAttribute('data-theme')
+    document.body.removeAttribute('data-journal')
   }
 }
 

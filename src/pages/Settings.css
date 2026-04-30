@@ -273,8 +273,8 @@
 /* ── 主题切换器 ────────────────── */
 .settings__theme-switcher {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
 }
 .settings__theme-opt {
   display: flex;
@@ -331,6 +331,26 @@
   width: 28px; height: 18px;
   border-radius: 9px;
   background: linear-gradient(135deg, #7c3aed, #6d28d9);
+}
+
+.settings__theme-preview--journal {
+  background: linear-gradient(180deg, #fdf8ef, #f5edd8);
+  border: 2.5px solid #c4a574;
+}
+.settings__theme-preview--journal::before {
+  content: '';
+  position: absolute;
+  top: 5px; left: 6px; width: 5px; height: 5px;
+  border-radius: 50%; background: rgba(122,158,126,.45);
+  box-shadow: 16px 3px 0 rgba(155,123,184,.35), 30px -1px 0 rgba(196,165,116,.3);
+}
+.settings__theme-preview--journal::after {
+  content: '';
+  position: absolute;
+  bottom: 7px; left: 50%; transform: translateX(-50%);
+  width: 26px; height: 15px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #7a9e7e, #5a8a6a);
 }
 
 .settings__theme-name {
