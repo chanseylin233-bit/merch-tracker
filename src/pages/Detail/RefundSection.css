@@ -1,130 +1,29 @@
 .refund-section {
   background: #fff;
-  border-radius: 12px;
-  padding: 12px;
-  margin-bottom: 12px;
+  border-radius: 18px; padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 8px rgba(167,139,250,.05);
+  border: 1px solid rgba(240,224,230,.4);
 }
 
-.refund-section__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
+.refund-section__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.refund-section__title { font-size: 15px; font-weight: 700; color: var(--text); }
+.refund-section__add { font-size: 13px; color: #059669; background: none; border: none; cursor: pointer; font-weight: 600; }
 
-.refund-section__title {
-  font-size: 15px;
-  font-weight: 600;
-  color: #102a6b;
-}
+.refund-section__form { background: linear-gradient(135deg, #ecfdf5, #d1fae5); border-radius: 14px; padding: 14px; margin-bottom: 12px; }
+.refund-section__row { display: flex; gap: 8px; margin-bottom: 10px; }
+.refund-section__row input { flex: 1; padding: 9px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 13px; outline: none; }
+.refund-section__form > input { width: 100%; padding: 9px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 13px; margin-bottom: 10px; outline: none; }
+.refund-section__actions { display: flex; gap: 8px; }
+.refund-section__btn { flex: 1; padding: 10px; border-radius: 12px; font-size: 13px; cursor: pointer; border: none; font-weight: 600; transition: all .15s; }
+.refund-section__btn--cancel { background: #f0e0e6; color: var(--text-muted); }
+.refund-section__btn--save { background: linear-gradient(135deg, #34d399, #059669); color: #fff; box-shadow: 0 2px 8px rgba(52,211,153,.2); }
 
-.refund-section__add {
-  font-size: 13px;
-  color: #2a7d6e;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-.refund-section__form {
-  background: #fcf6f0;
-  border-radius: 8px;
-  padding: 12px;
-  margin-bottom: 12px;
-}
-
-.refund-section__row {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-
-.refund-section__row input {
-  flex: 1;
-  padding: 8px;
-  border: 1px solid #d8cfc4;
-  border-radius: 6px;
-  font-size: 13px;
-}
-
-.refund-section__form > input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #d8cfc4;
-  border-radius: 6px;
-  font-size: 13px;
-  margin-bottom: 8px;
-}
-
-.refund-section__actions {
-  display: flex;
-  gap: 8px;
-}
-
-.refund-section__btn {
-  flex: 1;
-  padding: 8px;
-  border-radius: 6px;
-  font-size: 13px;
-  cursor: pointer;
-  border: none;
-}
-
-.refund-section__btn--cancel {
-  background: #e8dfd5;
-  color: #4a5568;
-}
-
-.refund-section__btn--save {
-  background: #2a7d6e;
-  color: #fff;
-}
-
-.refund-section__empty {
-  text-align: center;
-  color: #718096;
-  font-size: 13px;
-  padding: 20px 0;
-}
-
-.refund-section__list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.refund-section__item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid #e8dfd5;
-}
-
-.refund-section__item:last-child {
-  border-bottom: none;
-}
-
-.refund-section__type {
-  font-size: 13px;
-  color: #102a6b;
-  font-weight: 500;
-}
-
-.refund-section__note {
-  font-size: 12px;
-  color: #4a5568;
-  margin-top: 2px;
-}
-
-.refund-section__date {
-  font-size: 11px;
-  color: #718096;
-  margin-top: 2px;
-}
-
-.refund-section__amount {
-  font-size: 14px;
-  font-weight: 600;
-  color: #2a7d6e;
-}
+.refund-section__empty { text-align: center; color: var(--text-hint); font-size: 13px; padding: 22px 0; }
+.refund-section__list { display: flex; flex-direction: column; gap: 10px; }
+.refund-section__item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(240,224,230,.6); }
+.refund-section__item:last-child { border-bottom: none; }
+.refund-section__type { font-size: 13px; color: var(--text); font-weight: 600; }
+.refund-section__note { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.refund-section__date { font-size: 11px; color: var(--text-hint); margin-top: 2px; }
+.refund-section__amount { font-size: 15px; font-weight: 800; color: #059669; }

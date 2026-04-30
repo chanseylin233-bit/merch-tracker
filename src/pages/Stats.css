@@ -1,249 +1,246 @@
-.stats { padding: 16px 16px 80px; }
+.stats { padding: 18px 18px 80px; position: relative; z-index: 1; }
 
 /* ── 头部 ─────────────────────────── */
 .stats__header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
-.stats__title { font-size: 20px; font-weight: 800; color: #102a6b; }
+.stats__title { font-size: 22px; font-weight: 800; color: var(--text); letter-spacing: -.2px; }
 .stats__year-switch {
   display: flex;
   align-items: center;
   gap: 6px;
   background: #fff;
-  border-radius: 20px;
-  padding: 3px 10px;
-  box-shadow: 0 1px 4px rgba(16,42,107,.08);
+  border-radius: 22px;
+  padding: 4px 12px;
+  box-shadow: 0 2px 8px rgba(167,139,250,.08);
+  border: 1.5px solid rgba(240,224,230,.5);
 }
 .stats__year-btn {
-  width: 24px;
-  height: 24px;
+  width: 26px; height: 26px;
   border-radius: 50%;
   border: none;
   background: transparent;
   cursor: pointer;
-  font-size: 15px;
+  font-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #5990d0;
-  transition: background .2s;
+  color: var(--primary-mid);
+  transition: all .2s;
 }
-.stats__year-btn:active { background: #f0f4ff; }
+.stats__year-btn:active { background: var(--primary-soft); }
 .stats__year-btn:disabled { opacity: .25; cursor: default; }
-.stats__year-label { 
-  font-size: 15px; 
-  font-weight: 700; 
-  color: #102a6b; 
-  min-width: 48px;
+.stats__year-label {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  min-width: 52px;
   text-align: center;
 }
 
 /* ── 卡片 ─────────────────────────── */
 .stats__card {
   background: #fff;
-  border-radius: 16px;
-  padding: 16px;
-  margin-bottom: 12px;
-  box-shadow: 0 1px 4px rgba(16,42,107,.06);
+  border-radius: 20px;
+  padding: 18px;
+  margin-bottom: 14px;
+  box-shadow:
+    0 2px 8px rgba(167,139,250,.05),
+    0 1px 3px rgba(0,0,0,.02);
+  border: 1px solid rgba(240,224,230,.4);
 }
 
-/* ── 年度概览渐变卡片 ─────────────── */
+/* ── 年度概览渐变卡片（参考图：淡粉紫渐变） ── */
 .stats__card--gradient {
-  background: linear-gradient(145deg, #fef0f2 0%, #eef6fc 40%, #f0eeff 100%);
-  box-shadow: 0 4px 16px rgba(16,42,107,.08);
-  padding: 18px 16px;
+  background: linear-gradient(145deg, #fef4f8 0%, #f5f3ff 40%, #eff6ff 100%);
+  box-shadow:
+    0 4px 20px rgba(167,139,250,.1),
+    0 1px 3px rgba(0,0,0,.03);
+  padding: 20px 18px;
+  border-color: rgba(240,224,230,.5);
 }
 .stats__card--gradient .stats__card-title {
-  color: #102a6b;
-  font-size: 13px;
+  color: var(--text-muted);
+  font-size: 14px;
   letter-spacing: .3px;
+  font-weight: 700;
 }
 
 .stats__card-title {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
-  color: #94a3b8;
+  color: var(--text-hint);
   text-transform: uppercase;
   letter-spacing: .5px;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 /* ── 四宫格指标（带圆形图标） ─────── */
 .stats__grid4 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 4px;
-  margin-bottom: 14px;
+  gap: 6px;
+  margin-bottom: 16px;
 }
 .stats__metric { text-align: center; }
 .stats__metric-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
+  width: 42px; height: 42px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 17px;
-  margin: 0 auto 6px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  font-size: 18px;
+  margin: 0 auto 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.07);
 }
-.stats__metric-icon--blue { background: #e8f0fe; }
-.stats__metric-icon--pink { background: #fce8ec; }
-.stats__metric-icon--amber { background: #fef3db; }
-.stats__metric-icon--green { background: #dcf5ea; }
+.stats__metric-icon--blue { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
+.stats__metric-icon--pink { background: linear-gradient(135deg, #ffe4e6, #fecdd3); }
+.stats__metric-icon--amber { background: linear-gradient(135deg, #fef3c7, #fde68a); }
+.stats__metric-icon--green { background: linear-gradient(135deg, #d1fae5, #a7f3d0); }
+
 .stats__metric-value {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 800;
-  color: #102a6b;
-  line-height: 1.2;
+  color: var(--text);
+  line-height: 1.15;
 }
-.stats__metric--red { color: #c45c4a; }
-.stats__metric--orange { color: #cca273; }
-.stats__metric--green { color: #2a7d6e; }
+.stats__metric--red { color: #e11d48; }
+.stats__metric--orange { color: #d97706; }
+.stats__metric--green { color: #059669; }
 .stats__metric-label {
-  font-size: 10px;
-  color: #94a3b8;
-  margin-top: 2px;
+  font-size: 11px;
+  color: var(--text-hint);
+  margin-top: 3px;
+  font-weight: 600;
 }
 
-/* ── 实际花费横条 ─────────────────── */
+/* ── 实际花费横条（参考图：粉色底 + 大字） ── */
 .stats__net-cost-bar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 16px;
-  background: linear-gradient(135deg, #fce8ec, #fef0f2);
-  border-radius: 12px;
-  margin-bottom: 12px;
-  border: 1px solid rgba(196,92,74,.08);
+  padding: 14px 18px;
+  background: linear-gradient(135deg, #ffe4e6, #fecdd3);
+  border-radius: 14px;
+  margin-bottom: 14px;
+  border: 1px solid rgba(244,63,94,.06);
 }
 .stats__net-cost-label {
-  font-size: 13px;
-  font-weight: 600;
-  color: #4a5568;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-muted);
 }
 .stats__net-cost-num {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 800;
-  color: #c45c4a;
+  color: #e11d48;
 }
 
 /* ── 金额占比条 ───────────────────── */
 .stats__cost-bar {
   display: flex;
-  height: 10px;
-  border-radius: 5px;
+  height: 12px;
+  border-radius: 6px;
   overflow: hidden;
   gap: 2px;
-  background: #e8dfd5;
+  background: #f0e0e6;
 }
 .stats__cost-seg {
-  border-radius: 5px;
+  border-radius: 6px;
   min-width: 8px;
   transition: width .4s ease;
 }
-.stats__cost-seg--paid { background: linear-gradient(90deg, #f5a0b0, #e8899a); }
-.stats__cost-seg--pending { background: linear-gradient(90deg, #ddb98a, #cca273); }
-.stats__cost-seg--refund { background: linear-gradient(90deg, #5eb89f, #2a7d6e); }
+.stats__cost-seg--paid { background: linear-gradient(90deg, #fda4af, #fb7185); }
+.stats__cost-seg--pending { background: linear-gradient(90deg, #fcd34d, #f59e0b); }
+.stats__cost-seg--refund { background: linear-gradient(90deg, #6ee7b7, #34d399); }
 
-/* ── 三列小卡片 ───────────────────── */
+/* ── 三列小卡片（参考图：各自独立淡彩底） ── */
 .stats__row2 {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-bottom: 12px;
+  gap: 12px;
+  margin-bottom: 14px;
 }
 .stats__card--compact {
   text-align: center;
-  padding: 16px 8px 14px;
+  padding: 18px 10px 16px;
   position: relative;
   overflow: hidden;
+  border: none;
 }
 .stats__card--compact .stats__metric-value {
-  font-size: 24px;
-  margin-top: 6px;
+  font-size: 26px;
+  margin-top: 8px;
 }
 .stats__card--compact .stats__metric-label {
   font-size: 11px;
-  margin-top: 2px;
+  margin-top: 3px;
+  font-weight: 600;
 }
 
-/* 小卡片配色 */
+/* 小卡片配色（参考图） */
 .stats__card--blue {
-  background: linear-gradient(160deg, #eaf2fd 0%, #dbeafe 100%);
-  border: 1px solid rgba(89,144,208,.12);
+  background: linear-gradient(160deg, #e0f2fe 0%, #bae6fd 100%);
+  border: 1px solid rgba(125,211,252,.2);
 }
-.stats__card--blue .stats__metric-value { color: #015185; }
-.stats__card--blue .stats__metric-label { color: #5990d0; }
+.stats__card--blue .stats__metric-value { color: #0369a1; }
+.stats__card--blue .stats__metric-label { color: #38bdf8; }
 
 .stats__card--pink {
-  background: linear-gradient(160deg, #fdf0f3 0%, #fce8ec 100%);
-  border: 1px solid rgba(196,92,74,.1);
+  background: linear-gradient(160deg, #fff1f2 0%, #ffe4e6 100%);
+  border: 1px solid rgba(245,160,176,.2);
 }
-.stats__card--pink .stats__metric-value { color: #c45c4a; }
-.stats__card--pink .stats__metric-label { color: #d4897a; }
+.stats__card--pink .stats__metric-value { color: #be123c; }
+.stats__card--pink .stats__metric-label { color: #f43f5e; }
 
 .stats__card--purple {
-  background: linear-gradient(160deg, #ede9fe 0%, #e0e0ff 100%);
-  border: 1px solid rgba(89,96,208,.15);
+  background: linear-gradient(160deg, #ede9fe 0%, #ddd6fe 100%);
+  border: 1px solid rgba(167,139,250,.2);
 }
-.stats__card--purple .stats__metric-value { color: #5956c8; }
-.stats__card--purple .stats__metric-label { color: #8885dd; }
+.stats__card--purple .stats__metric-value { color: #6d28d9; }
+.stats__card--purple .stats__metric-label { color: #a78bfa; }
 
-.stats__metric-icon-sm {
-  font-size: 20px;
-  margin-bottom: 2px;
-}
+.stats__metric-icon-sm { font-size: 22px; margin-bottom: 2px; }
 
 /* ── 折线图区域 ───────────────────── */
-.stats__chart-wrap {
-  width: 100%;
-  height: 180px;
-  position: relative;
-}
-.stats__line-canvas {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
+.stats__chart-wrap { width: 100%; height: 190px; position: relative; }
+.stats__line-canvas { width: 100%; height: 100%; display: block; }
 
 /* ── 图例 ─────────────────────────── */
 .stats__legend {
   display: flex;
-  gap: 16px;
+  gap: 18px;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 12px;
   font-size: 11px;
-  color: #94a3b8;
+  color: var(--text-hint);
 }
-.stats__legend-item {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
+.stats__legend-item { display: flex; align-items: center; gap: 5px; }
 .stats__legend-dot {
-  width: 8px;
-  height: 8px;
+  width: 8px; height: 8px;
   border-radius: 50%;
 }
-.stats__legend-dot--paid { background: #f5a0b0; }
-.stats__legend-dot--net { background: #5990d0; }
+.stats__legend-dot--paid { background: var(--pink); }
+.stats__legend-dot--net { background: var(--primary); }
 
 /* ── 横向条形图 ───────────────────── */
 .stats__hbar-row {
   display: grid;
   grid-template-columns: 76px 1fr 72px;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 10px;
+  gap: 10px;
+  margin-bottom: 12px;
 }
 .stats__hbar-label {
-  font-size: 12px;
-  color: #1e293b;
-  font-weight: 500;
+  font-size: 13px;
+  color: var(--text);
+  font-weight: 600;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -252,46 +249,41 @@
   text-overflow: ellipsis;
 }
 .stats__hbar-dot {
-  width: 8px;
-  height: 8px;
+  width: 8px; height: 8px;
   border-radius: 50%;
   flex-shrink: 0;
 }
 .stats__hbar-track {
-  height: 8px;
-  background: #f1f0e8;
-  border-radius: 4px;
+  height: 10px;
+  background: #f5f0f5;
+  border-radius: 5px;
   overflow: hidden;
 }
 .stats__hbar-fill {
   height: 100%;
-  border-radius: 4px;
+  border-radius: 5px;
   transition: width .3s;
 }
 .stats__hbar-val {
   text-align: right;
   font-size: 11px;
-  color: #64748b;
+  color: var(--text-muted);
 }
 .stats__hbar-count { margin-right: 4px; }
-.stats__hbar-money { font-weight: 700; color: #102a6b; }
+.stats__hbar-money { font-weight: 800; color: var(--text); }
 
 /* ── 状态气泡 ─────────────────────── */
-.stats__bubble-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
+.stats__bubble-row { display: flex; flex-wrap: wrap; gap: 8px; }
 .stats__bubble {
-  padding: 8px 12px;
-  border-radius: 10px;
+  padding: 9px 14px;
+  border-radius: 12px;
   background: color-mix(in srgb, var(--bubble-color) 10%, #fff);
   border: 1px solid color-mix(in srgb, var(--bubble-color) 20%, #fff);
   text-align: center;
-  min-width: 60px;
+  min-width: 62px;
 }
 .stats__bubble-num {
-  font-size: 18px;
+  font-size: 19px;
   font-weight: 800;
   color: var(--bubble-color);
 }
@@ -301,23 +293,22 @@
   white-space: nowrap;
 }
 
-/* ── 导出按钮 ─────────────────────── */
+/* ── 导出按钮（参考图：描边风格） ── */
 .stats__export-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 10px 20px;
-  border: 1.5px solid #5990d0;
-  border-radius: 10px;
+  padding: 11px 22px;
+  border: 1.5px solid var(--primary);
+  border-radius: 14px;
   background: transparent;
-  color: #5990d0;
+  color: var(--primary-mid);
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
-  margin-top: 4px;
+  margin-top: 6px;
   transition: all .2s;
 }
 .stats__export-btn:active {
-  background: #5990d0;
-  color: #fff;
+  background: var(--primary-soft);
 }

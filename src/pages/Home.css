@@ -1,108 +1,116 @@
-.home { 
-  padding: 16px 16px 72px; 
-  background: linear-gradient(180deg, #fef0f2 0%, #eef6fc 40%, #f5f3f0 100%);
+.home {
+  padding: 18px 18px 72px;
+  background: transparent;
   min-height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 
 /* ── 标题区 ─────────────────────── */
-.home__hero { margin-bottom: 18px; }
-.home__greeting { 
-  font-size: 22px; 
-  font-weight: 800; 
-  color: #102a6b; 
+.home__hero { margin-bottom: 22px; }
+.home__greeting {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--text);
   margin-bottom: 4px;
+  letter-spacing: -.3px;
 }
-.home__sub { 
-  font-size: 13px; 
-  color: #718096; 
+.home__sub {
+  font-size: 13px;
+  color: var(--text-hint);
+  font-weight: 500;
 }
 
-/* ── 三张统计卡片 ───────────────── */
+/* ── 三张统计卡片（参考图风格） ── */
 .home__overview {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-bottom: 24px;
+  gap: 12px;
+  margin-bottom: 28px;
 }
 .home__stat {
   background: #fff;
-  border-radius: 14px;
-  padding: 14px 8px 12px;
+  border-radius: 20px;
+  padding: 16px 8px 14px;
   text-align: center;
-  box-shadow: 0 1px 4px rgba(16,42,107,.06);
+  box-shadow:
+    0 2px 8px rgba(167,139,250,.06),
+    0 1px 3px rgba(0,0,0,.03);
   position: relative;
   overflow: hidden;
+  border: 1px solid rgba(240,224,230,.4);
 }
 /* 卡片顶部淡色装饰条 */
 .home__stat::before {
   content: '';
   position: absolute;
-  top: 0;
-  left: 50%;
+  top: 0; left: 50%;
   transform: translateX(-50%);
-  width: 36px;
-  height: 3px;
-  border-radius: 0 0 3px 3px;
+  width: 40px;
+  height: 3.5px;
+  border-radius: 0 0 4px 4px;
 }
-.home__stat--amber::before { background: #cca273; }
-.home__stat--pink::before { background: #f5a0b0; }
-.home__stat--blue::before { background: #5990d0; }
+.home__stat--amber::before { background: linear-gradient(90deg, #fcd34d, #cca273); }
+.home__stat--pink::before { background: linear-gradient(90deg, #fda4af, #f43f5e); }
+.home__stat--blue::before { background: linear-gradient(90deg, #7dd3fc, #38bdf8); }
 
 .home__stat-icon {
-  width: 38px;
-  height: 38px;
-  border-radius: 12px;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
-  margin: 0 auto 8px;
-  box-shadow: 0 2px 6px rgba(0,0,0,.06);
+  font-size: 20px;
+  margin: 0 auto 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
 }
-.home__stat--amber .home__stat-icon { background: #fef3db; color: #cca273; }
-.home__stat--pink .home__stat-icon { background: #fce8ec; color: #c45c4a; }
-.home__stat--blue .home__stat-icon { background: #eaf2fd; color: #015185; }
+.home__stat--amber .home__stat-icon { background: linear-gradient(135deg, #fef3c7, #fde68a); color: #d97706; }
+.home__stat--pink .home__stat-icon { background: linear-gradient(135deg, #ffe4e6, #fecdd3); color: #e11d48; }
+.home__stat--blue .home__stat-icon { background: linear-gradient(135deg, #e0f2fe, #bae6fd); color: #0284c7; }
 
 .home__stat-value {
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 800;
-  color: #102a6b;
-  line-height: 1.2;
+  color: var(--text);
+  line-height: 1.15;
 }
 .home__stat--money {
-  font-size: 20px !important;
-  color: #015185 !important;
+  font-size: 22px !important;
+  color: #0284c7 !important;
 }
 .home__stat-label {
   font-size: 11px;
-  color: #94a3b8;
-  margin-top: 3px;
+  color: var(--text-hint);
+  margin-top: 4px;
+  font-weight: 600;
 }
 
 /* ── 分组标题 ───────────────────── */
 .home__section { margin-bottom: 18px; }
 .home__section-title {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 700;
-  color: #102a6b;
+  color: var(--text);
   margin-bottom: 10px;
   display: flex;
   align-items: center;
   gap: 6px;
 }
 
-/* ── 空状态 ─────────────────────── */
+/* ── 空状态（参考图：居中 + emoji + 柔和文字） ── */
 .home__empty-wrap {
   text-align: center;
-  padding: 48px 0 32px;
+  padding: 56px 0 36px;
+  position: relative;
 }
 .home__empty-emoji {
-  font-size: 44px;
-  margin-bottom: 10px;
-  filter: drop-shadow(0 2px 4px rgba(89,144,208,.15));
+  font-size: 48px;
+  margin-bottom: 12px;
+  filter: drop-shadow(0 2px 6px rgba(245,160,176,.2));
 }
 .home__empty-text {
-  color: #94a3b8;
+  color: var(--text-muted);
   font-size: 15px;
   font-weight: 500;
 }

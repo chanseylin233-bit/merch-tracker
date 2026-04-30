@@ -1,131 +1,30 @@
 .payment-section {
   background: #fff;
-  border-radius: 12px;
-  padding: 12px;
-  margin-bottom: 12px;
+  border-radius: 18px; padding: 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 8px rgba(167,139,250,.05);
+  border: 1px solid rgba(240,224,230,.4);
 }
 
-.payment-section__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
+.payment-section__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.payment-section__title { font-size: 15px; font-weight: 700; color: var(--text); }
+.payment-section__add { font-size: 13px; color: var(--primary-mid); background: none; border: none; cursor: pointer; font-weight: 600; }
 
-.payment-section__title {
-  font-size: 15px;
-  font-weight: 600;
-  color: #102a6b;
-}
-
-.payment-section__add {
-  font-size: 13px;
-  color: #102a6b;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-.payment-section__form {
-  background: #fcf6f0;
-  border-radius: 8px;
-  padding: 12px;
-  margin-bottom: 12px;
-}
-
-.payment-section__row {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-
+.payment-section__form { background: #faf5fa; border-radius: 14px; padding: 14px; margin-bottom: 12px; }
+.payment-section__row { display: flex; gap: 8px; margin-bottom: 10px; }
 .payment-section__row select,
-.payment-section__row input {
-  flex: 1;
-  padding: 8px;
-  border: 1px solid #d8cfc4;
-  border-radius: 6px;
-  font-size: 13px;
-}
+.payment-section__row input { flex: 1; padding: 9px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 13px; outline: none; }
+.payment-section__form > input { width: 100%; padding: 9px; border: 1.5px solid var(--border); border-radius: 10px; font-size: 13px; margin-bottom: 10px; outline: none; }
+.payment-section__actions { display: flex; gap: 8px; }
+.payment-section__btn { flex: 1; padding: 10px; border-radius: 12px; font-size: 13px; cursor: pointer; border: none; font-weight: 600; transition: all .15s; }
+.payment-section__btn--cancel { background: #f0e0e6; color: var(--text-muted); }
+.payment-section__btn--save { background: linear-gradient(135deg, #a78bfa, #818cf8); color: #fff; box-shadow: 0 2px 8px rgba(139,92,246,.2); }
 
-.payment-section__form > input {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #d8cfc4;
-  border-radius: 6px;
-  font-size: 13px;
-  margin-bottom: 8px;
-}
-
-.payment-section__actions {
-  display: flex;
-  gap: 8px;
-}
-
-.payment-section__btn {
-  flex: 1;
-  padding: 8px;
-  border-radius: 6px;
-  font-size: 13px;
-  cursor: pointer;
-  border: none;
-}
-
-.payment-section__btn--cancel {
-  background: #e8dfd5;
-  color: #4a5568;
-}
-
-.payment-section__btn--save {
-  background: #102a6b;
-  color: #fff;
-}
-
-.payment-section__empty {
-  text-align: center;
-  color: #718096;
-  font-size: 13px;
-  padding: 20px 0;
-}
-
-.payment-section__list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.payment-section__item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 8px 0;
-  border-bottom: 1px solid #f1f5f9;
-}
-
-.payment-section__item:last-child {
-  border-bottom: none;
-}
-
-.payment-section__type {
-  font-size: 13px;
-  color: #102a6b;
-  font-weight: 500;
-}
-
-.payment-section__note {
-  font-size: 12px;
-  color: #4a5568;
-  margin-top: 2px;
-}
-
-.payment-section__date {
-  font-size: 11px;
-  color: #718096;
-  margin-top: 2px;
-}
-
-.payment-section__amount {
-  font-size: 14px;
-  font-weight: 600;
-  color: #c45c4a;
-}
+.payment-section__empty { text-align: center; color: var(--text-hint); font-size: 13px; padding: 22px 0; }
+.payment-section__list { display: flex; flex-direction: column; gap: 10px; }
+.payment-section__item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(240,224,230,.6); }
+.payment-section__item:last-child { border-bottom: none; }
+.payment-section__type { font-size: 13px; color: var(--text); font-weight: 600; }
+.payment-section__note { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.payment-section__date { font-size: 11px; color: var(--text-hint); margin-top: 2px; }
+.payment-section__amount { font-size: 15px; font-weight: 800; color: #e11d48; }
