@@ -1,0 +1,231 @@
+.add { padding: 12px 14px 72px; }
+.add__header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  position: relative;
+}
+.add__back {
+  font-size: 14px;
+  color: #6366f1;
+  cursor: pointer;
+}
+.add__title { font-size: 18px; font-weight: 700; color: #1e293b; flex: 1; }
+.add__unsaved-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #f97316;
+  animation: pulse-dot 2s infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .4; }
+}
+
+.add__form { display: flex; flex-direction: column; gap: 6px; }
+
+/* ── 分组标题 ──────────────────────── */
+.add__group-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  padding-top: 8px;
+  margin-top: 2px;
+  border-top: 1px solid #f1f5f9;
+}
+.add__group-label:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
+
+/* ── 折叠区块 ──────────────────────── */
+.add__collapse-toggle {
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: #6366f1;
+  cursor: pointer;
+  padding: 3px 0;
+  text-align: left;
+  width: 100%;
+}
+.add__collapse-toggle:hover { text-decoration: underline; }
+.add__collapse-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  animation: slideDown .15s ease;
+}
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── 表单元素（紧凑模式） ──────────────────────── */
+.add .form-group {
+  margin-bottom: 2px;
+}
+.add .form-label { font-size: 11px; color: #64748b; font-weight: 600; margin-bottom: 0; }
+.form-label--required::after { content: ' *'; color: #ef4444; }
+.add .form-input, .add .form-select, .add .form-textarea {
+  padding: 7px 10px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  font-size: 13px;
+  outline: none;
+  background: #fff;
+  width: 100%;
+  box-sizing: border-box;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99,102,241,.1);
+}
+.form-textarea { resize: vertical; min-height: 60px; }
+.add .form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+/* ── 金额输入（紧凑） ──────────────────────── */
+.amount-input {
+  display: flex;
+  align-items: center;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: #fff;
+  overflow: hidden;
+  transition: all .15s;
+}
+.amount-input:focus-within {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99,102,241,.1);
+}
+.amount-input__prefix {
+  padding: 7px 0 7px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #94a3b8;
+  user-select: none;
+}
+.amount-input__field {
+  border: none;
+  outline: none;
+  font-size: 13px;
+  padding: 7px 10px 7px 4px;
+  width: 100%;
+  background: transparent;
+}
+.amount-input__field::placeholder { color: #cbd5e1; }
+
+/* ── 标签输入（紧凑） ──────────────────────── */
+.add__tags-input {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+  padding: 5px 8px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: #fff;
+  min-height: 34px;
+}
+.add__tags-input:focus-within {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99,102,241,.1);
+}
+.add__tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 11px;
+  padding: 2px 7px;
+  border-radius: 10px;
+  background: #ede9fe;
+  color: #6366f1;
+}
+.add__tag-remove {
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+}
+
+/* ── 角色标签建议（紧凑） ──────────────────────── */
+.add__tag-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+  margin-bottom: 3px;
+}
+.add__tag-suggestions-label {
+  font-size: 10px;
+  color: #94a3b8;
+  font-weight: 600;
+}
+.add__tag-suggestion-btn {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #475569;
+  cursor: pointer;
+  transition: all .15s;
+}
+.add__tag-suggestion-btn:hover {
+  background: #ede9fe;
+  color: #6366f1;
+  border-color: #c7d2fe;
+}
+
+/* ── 拼团群下拉 ──────────────────────── */
+.add__dropdown {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  z-index: 10;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  max-height: 160px;
+  overflow-y: auto;
+  margin-top: 4px;
+}
+.add__dropdown-item {
+  padding: 6px 10px;
+  font-size: 12px;
+  color: #475569;
+  cursor: pointer;
+  transition: background .1s;
+}
+.add__dropdown-item:hover {
+  background: #f1f5f9;
+}
+.add__dropdown-item:first-child {
+  border-radius: 8px 8px 0 0;
+}
+.add__dropdown-item:last-child {
+  border-radius: 0 0 8px 8px;
+}
+
+/* ── 按钮（紧凑） ──────────────────────────── */
+.add__actions { display: flex; gap: 8px; margin-top: 6px; }
+.add__btn {
+  flex: 1;
+  padding: 9px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+.add .form-textarea {
+  min-height: 48px;
+}
+.add__btn--save { background: #6366f1; color: #fff; }
+.add__btn--cancel { background: #f1f5f9; color: #475569; }

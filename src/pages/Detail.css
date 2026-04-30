@@ -1,0 +1,365 @@
+.detail { padding: 16px 16px 80px; }
+.detail__back {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  color: #6366f1;
+  margin-bottom: 14px;
+  cursor: pointer;
+}
+.detail__title { font-size: 20px; font-weight: 800; color: #1e293b; margin-bottom: 8px; }
+
+/* ── 状态进度条 ───────────────────────── */
+.detail__progress-bar-wrap {
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 12px;
+  position: relative;
+}
+.detail__progress-track {
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 4px 0;
+  scrollbar-width: none;
+}
+.detail__progress-track::-webkit-scrollbar { display: none; }
+
+/* 连线 */
+.detail__progress-track::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  right: 12px;
+  height: 3px;
+  background: #e2e8f0;
+  transform: translateY(-50%);
+  border-radius: 2px;
+}
+
+.detail__progress-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 24px;
+  position: relative;
+  z-index: 1;
+}
+.detail__progress-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--node-color, #cbd5e1);
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px var(--node-color, #cbd5e1);
+  transition: all .2s;
+}
+.detail__progress-node.past .detail__progress-dot {
+  opacity: .6;
+}
+.detail__progress-node.current .detail__progress-dot {
+  width: 16px;
+  height: 16px;
+  box-shadow: 0 0 0 3px rgba(99,102,241,.2), 0 0 0 1px var(--node-color);
+}
+.detail__progress-label {
+  font-size: 10px;
+  color: var(--node-color, #6366f1);
+  font-weight: 600;
+  white-space: nowrap;
+  margin-top: 4px;
+  max-width: 60px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.detail__progress-terminated {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  margin-top: 6px;
+}
+.detail__progress-percent {
+  text-align: right;
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+/* ── 状态栏 ─────────────────────────── */
+.detail__status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.detail__status-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.detail__status-toggle {
+  background: none;
+  border: none;
+  font-size: 12px;
+  color: #6366f1;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.detail__status-toggle:hover {
+  background: #ede9fe;
+}
+.detail__next-action {
+  font-size: 13px;
+  color: #6366f1;
+  font-weight: 500;
+}
+
+/* ── 快捷状态按钮 ───────────────────── */
+.detail__quick-status {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.detail__quick-btn {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  flex: 1;
+  transition: opacity .15s;
+}
+.detail__quick-btn:active { opacity: .7; }
+.detail__quick-btn--prev {
+  background: #f1f5f9;
+  color: #475569;
+}
+.detail__quick-btn--next {
+  background: #6366f1;
+  color: #fff;
+}
+
+/* ── 状态选择面板 ───────────────────── */
+.detail__status-panel {
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 16px;
+  border: 1px solid #e2e8f0;
+}
+.detail__status-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.detail__status-chip {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  color: #1e293b;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all .15s;
+}
+.detail__status-chip:hover {
+  border-color: var(--chip-color);
+  color: var(--chip-color);
+}
+.detail__status-chip.active {
+  background: var(--chip-color);
+  color: #fff;
+  border-color: var(--chip-color);
+}
+
+/* ── Section ────────────────────────── */
+.detail__section { margin-bottom: 20px; }
+.detail__section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #f1f5f9;
+}
+.detail__section-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+.detail__add-btn {
+  background: none;
+  border: 1px dashed #c7d2fe;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  color: #6366f1;
+  cursor: pointer;
+}
+.detail__add-btn:hover {
+  background: #ede9fe;
+}
+.detail__empty-hint {
+  font-size: 13px;
+  color: #94a3b8;
+  padding: 8px 0;
+}
+
+/* ── 内联表单 ───────────────────────── */
+.detail__inline-form {
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: 1px solid #ede9fe;
+}
+.detail__inline-row {
+  display: flex;
+  gap: 8px;
+}
+.detail__inline-row > * { flex: 1; }
+.detail__inline-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+.detail__inline-btn {
+  padding: 8px 20px;
+  border-radius: 8px;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.detail__inline-btn--cancel {
+  background: #f1f5f9;
+  color: #475569;
+}
+.detail__inline-btn--save {
+  background: #6366f1;
+  color: #fff;
+}
+
+/* ── Row ─────────────────────────────── */
+.detail__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 6px 0;
+  font-size: 14px;
+}
+.detail__key { color: #64748b; min-width: 80px; }
+.detail__val { color: #1e293b; text-align: right; flex: 1; margin-left: 8px; }
+.detail__val--money { font-weight: 700; color: #ef4444; }
+.detail__val--pending { color: #f97316; font-weight: 600; }
+
+.detail__tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.detail__tag {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: #f1f5f9;
+  color: #475569;
+}
+.detail__tag--primary {
+  background: #ede9fe;
+  color: #6366f1;
+}
+
+/* ── 时间线 ──────────────────────────── */
+.detail__timeline { position: relative; padding-left: 20px; }
+.detail__timeline::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  background: #e2e8f0;
+}
+.detail__timeline-item {
+  position: relative;
+  margin-bottom: 14px;
+}
+.detail__timeline-dot {
+  position: absolute;
+  left: -18px;
+  top: 4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px #e2e8f0;
+}
+.detail__timeline-content {
+  padding-left: 4px;
+}
+.detail__timeline-status { font-size: 13px; color: #1e293b; font-weight: 500; }
+.detail__timeline-date { font-size: 11px; color: #94a3b8; }
+.detail__timeline-note { font-size: 12px; color: #64748b; margin-top: 2px; }
+
+/* ── 付款/退款记录 ───────────────────── */
+.detail__payment-item {
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.detail__payment-type { font-size: 12px; color: #64748b; font-weight: 500; }
+.detail__payment-note { font-size: 11px; color: #94a3b8; }
+.detail__payment-date { font-size: 11px; color: #94a3b8; }
+.detail__payment-amount { font-size: 15px; font-weight: 700; color: #1e293b; }
+.detail__payment-amount--refund { color: #22c55e; }
+
+/* ── 底部操作栏 ─────────────────────── */
+.detail__actions {
+  position: fixed;
+  bottom: 60px;
+  left: 0;
+  right: 0;
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+  background: rgba(255,255,255,.95);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid #e2e8f0;
+}
+.detail__action-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #6366f1;
+  color: #fff;
+}
+.detail__action-btn--secondary {
+  background: #f1f5f9;
+  color: #475569;
+}
+.detail__action-btn--danger {
+  background: #fee2e2;
+  color: #ef4444;
+}

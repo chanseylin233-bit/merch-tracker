@@ -1,0 +1,263 @@
+.stats { padding: 16px 16px 80px; }
+.stats__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.stats__title { font-size: 20px; font-weight: 800; color: #1e293b; }
+.stats__year-switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.stats__year-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.stats__year-btn:disabled { opacity: .3; cursor: default; }
+.stats__year-label { font-size: 15px; font-weight: 700; color: #6366f1; }
+
+/* ── 卡片 ─────────────────────────── */
+.stats__card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.05);
+}
+.stats__card--gradient {
+  background: linear-gradient(135deg, #ede9fe 0%, #f0f9ff 100%);
+  box-shadow: 0 2px 8px rgba(99,102,241,.1);
+}
+.stats__card--compact {
+  text-align: center;
+  padding: 14px 8px;
+}
+.stats__card--accent {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  color: #fff;
+}
+.stats__card--accent .stats__metric-label { color: rgba(255,255,255,.7); }
+.stats__card--accent .stats__metric-value { color: #fff; }
+
+.stats__card-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin-bottom: 12px;
+}
+
+/* ── 四宫格指标 ───────────────────── */
+.stats__grid4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.stats__metric { text-align: center; }
+.stats__metric-value {
+  font-size: 20px;
+  font-weight: 800;
+  color: #1e293b;
+}
+.stats__metric--red { color: #ef4444; }
+.stats__metric--orange { color: #f97316; }
+.stats__metric--green { color: #22c55e; }
+.stats__metric-label {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+/* ── 实际花费 ─────────────────────── */
+.stats__net-cost {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: rgba(255,255,255,.7);
+  border-radius: 10px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #475569;
+}
+.stats__net-cost-num {
+  font-size: 22px;
+  font-weight: 800;
+  color: #ef4444;
+}
+
+/* ── 金额占比条 ───────────────────── */
+.stats__cost-bar {
+  display: flex;
+  height: 8px;
+  border-radius: 4px;
+  overflow: hidden;
+  gap: 2px;
+  background: #e2e8f0;
+}
+.stats__cost-seg {
+  font-size: 0;
+  border-radius: 4px;
+  min-width: 16px;
+  transition: width .3s;
+}
+.stats__cost-seg--paid { background: #ef4444; }
+.stats__cost-seg--pending { background: #f97316; }
+.stats__cost-seg--refund { background: #22c55e; }
+
+/* ── 三列小卡片 ───────────────────── */
+.stats__row2 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+/* ── 月度趋势柱状图 ─────────────── */
+.stats__bar-chart {
+  display: flex;
+  align-items: flex-end;
+  height: 120px;
+  gap: 4px;
+  padding: 0 4px;
+}
+.stats__bar-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+.stats__bar-wrap {
+  flex: 1;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.stats__bar {
+  width: 100%;
+  border-radius: 3px 3px 0 0;
+  min-height: 2px;
+  transition: height .3s;
+}
+.stats__bar--net {
+  background: #6366f1;
+  position: relative;
+  z-index: 2;
+}
+.stats__bar--paid {
+  background: #fecaca;
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+.stats__bar-label {
+  font-size: 10px;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+.stats__legend {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  margin-top: 8px;
+  font-size: 11px;
+  color: #94a3b8;
+}
+.stats__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.stats__legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.stats__legend-dot--paid { background: #fecaca; }
+.stats__legend-dot--net { background: #6366f1; }
+
+/* ── 横向条形图 ───────────────────── */
+.stats__hbar-row {
+  display: grid;
+  grid-template-columns: 80px 1fr 72px;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.stats__hbar-label {
+  font-size: 13px;
+  color: #1e293b;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.stats__hbar-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.stats__hbar-track {
+  height: 8px;
+  background: #f1f5f9;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.stats__hbar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width .3s;
+}
+.stats__hbar-val {
+  text-align: right;
+  font-size: 11px;
+  color: #64748b;
+}
+.stats__hbar-count { margin-right: 4px; }
+.stats__hbar-money { font-weight: 700; color: #1e293b; }
+
+/* ── 状态气泡 ─────────────────────── */
+.stats__bubble-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.stats__bubble {
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--bubble-color) 12%, #fff);
+  border: 1px solid color-mix(in srgb, var(--bubble-color) 25%, #fff);
+  text-align: center;
+  min-width: 60px;
+}
+.stats__bubble-num {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--bubble-color);
+}
+.stats__bubble-label {
+  font-size: 10px;
+  color: color-mix(in srgb, var(--bubble-color) 70%, #475569);
+  white-space: nowrap;
+}

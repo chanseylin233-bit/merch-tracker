@@ -1,0 +1,130 @@
+.refund-section {
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.refund-section__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.refund-section__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.refund-section__add {
+  font-size: 13px;
+  color: #22c55e;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.refund-section__form {
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.refund-section__row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.refund-section__row input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+.refund-section__form > input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 13px;
+  margin-bottom: 8px;
+}
+
+.refund-section__actions {
+  display: flex;
+  gap: 8px;
+}
+
+.refund-section__btn {
+  flex: 1;
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  cursor: pointer;
+  border: none;
+}
+
+.refund-section__btn--cancel {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.refund-section__btn--save {
+  background: #22c55e;
+  color: #fff;
+}
+
+.refund-section__empty {
+  text-align: center;
+  color: #94a3b8;
+  font-size: 13px;
+  padding: 20px 0;
+}
+
+.refund-section__list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.refund-section__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.refund-section__item:last-child {
+  border-bottom: none;
+}
+
+.refund-section__type {
+  font-size: 13px;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.refund-section__note {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.refund-section__date {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-top: 2px;
+}
+
+.refund-section__amount {
+  font-size: 14px;
+  font-weight: 600;
+  color: #22c55e;
+}
