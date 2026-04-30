@@ -108,11 +108,14 @@ export function SettingsPage() {
 
   return (
     <div className="settings">
-      <div className="settings__title">设置</div>
+      <div className="settings__title">设置 ✨</div>
 
       {/* 数据统计 */}
       <div className="settings__card">
-        <div className="settings__card-title">数据统计</div>
+        <div className="settings__card-header">
+          <span className="settings__card-icon settings__card-icon--pink">📊</span>
+          <span className="settings__card-title">数据统计</span>
+        </div>
         <div className="settings__stat">
           <span>总记录数</span>
           <span className="settings__stat-value">{state.orders.length}</span>
@@ -125,7 +128,10 @@ export function SettingsPage() {
 
       {/* 制品类型管理 */}
       <div className="settings__card">
-        <div className="settings__card-title">制品类型</div>
+        <div className="settings__card-header">
+          <span className="settings__card-icon settings__card-icon--red">🎨</span>
+          <span className="settings__card-title">制品类型</span>
+        </div>
         <div className="settings__types">
           {DEFAULT_PRODUCT_TYPES.map(t => (
             <span className="settings__type-chip" key={t}>{t}</span>
@@ -145,25 +151,27 @@ export function SettingsPage() {
             onChange={e => setNewType(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && handleAddType()}
           />
-          <button className="settings__btn settings__btn--primary" onClick={handleAddType}>添加</button>
+          <button className="settings__btn settings__btn--gradient" onClick={handleAddType}>添加</button>
         </div>
       </div>
 
       {/* 数据备份 */}
       <div className="settings__card">
-        <div className="settings__card-title">数据备份</div>
+        <div className="settings__card-header">
+          <span className="settings__card-icon settings__card-icon--blue">☁️</span>
+          <span className="settings__card-title">数据备份</span>
+        </div>
         <div className="settings__actions">
-          <button className="settings__btn settings__btn--primary" onClick={handleExport}>
-            📤 导出备份
+          <button className="settings__btn settings__btn--outline-pink" onClick={handleExport}>
+            ⬇ 导出备份
           </button>
-          <button className="settings__btn" onClick={() => { setShowImport(!showImport); setImportPreview(null) }}>
-            📥 导入数据
+          <button className="settings__btn settings__btn--outline-blue" onClick={() => { setShowImport(!showImport); setImportPreview(null) }}>
+            ⬆ 导入数据
           </button>
         </div>
 
         {showImport && (
           <div className="settings__import">
-            {/* 拖拽上传区 */}
             <div
               className={`settings__dropzone ${dragOver ? 'settings__dropzone--active' : ''}`}
               onDragOver={handleDragOver}
@@ -193,26 +201,21 @@ export function SettingsPage() {
               onChange={e => parseImport(e.target.value)}
             />
 
-            {/* 预览 */}
             {importPreview && (
               <div className={`settings__import-preview ${importPreview.valid ? 'valid' : 'invalid'}`}>
                 {importPreview.valid ? (
                   <>
-                    <span className="settings__preview-icon">✅</span>
-                    识别到 <strong>{importPreview.orders}</strong> 条记录
+                    <span>✅ 识别到 <strong>{importPreview.orders}</strong> 条记录</span>
                     {importPreview.types > 0 && <>，<strong>{importPreview.types}</strong> 个自定义类型</>}
                   </>
                 ) : (
-                  <>
-                    <span className="settings__preview-icon">❌</span>
-                    无效的数据格式，请检查 JSON 内容
-                  </>
+                  <>❌ 无效的数据格式，请检查 JSON 内容</>
                 )}
               </div>
             )}
 
             <button
-              className="settings__btn settings__btn--primary"
+              className="settings__btn settings__btn--gradient"
               onClick={handleImport}
               disabled={!importPreview?.valid}
               style={{ width: '100%', marginTop: 8, opacity: importPreview?.valid ? 1 : 0.5 }}
@@ -225,7 +228,10 @@ export function SettingsPage() {
 
       {/* 危险操作 */}
       <div className="settings__card settings__card--danger">
-        <div className="settings__card-title">危险操作</div>
+        <div className="settings__card-header">
+          <span className="settings__card-icon settings__card-icon--warn">⚠️</span>
+          <span className="settings__card-title">危险操作</span>
+        </div>
         <button className="settings__btn settings__btn--danger" onClick={handleClearAll}>
           🗑 清空所有数据
         </button>
@@ -233,7 +239,10 @@ export function SettingsPage() {
 
       {/* 关于 */}
       <div className="settings__card">
-        <div className="settings__card-title">关于</div>
+        <div className="settings__card-header">
+          <span className="settings__card-icon settings__card-icon--purple">ℹ️</span>
+          <span className="settings__card-title">关于</span>
+        </div>
         <p className="settings__about">
           苏茜周边拼团记录工具<br />
           数据存储在浏览器本地，请定期备份。<br />

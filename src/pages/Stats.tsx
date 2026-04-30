@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { useYearStats, useMaxMonthlyPaid, useMaxTypePaid, MACARON } from '../hooks/useStats'
 import { formatMoney } from '../utils/format'
 import { useApp } from '../context/AppContext'
@@ -16,93 +16,152 @@ export function StatsPage() {
 
   const { state } = useApp()
 
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+
   const handleExportCSV = () => {
     const csv = exportCSV(state.orders)
     downloadFile(csv, `merch-tracker-${viewYear}.csv`, 'text/csv')
   }
 
+  // 折线图绘制
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+
+    const dpr = window.devicePixelRatio || 1
+    const rect = canvas.getBoundingClientRect()
+    canvas.width = rect.width * dpr
+    canvas.height = rect.height * dpr
+    ctx.scale(dpr, dpr)
+
+    const W = rect.width
+    const H = rect.height
+    const pad = { top: 10, right: 10, bottom: 24, left: 36 }
+    const cW = W - pad.left - pad.right
+    const cH = H - pad.top - pad.bottom
+
+    ctx.clearRect(0, 0, W, H)
+
+    // 网格线
+    ctx.strokeStyle = '#e8dfd5'
+    ctx.lineWidth = 0.5
+    const yLines = [0, 50, 100, 150]
+    yLines.forEach(v => {
+      const y = pad.top + cH - (v / Math.max(maxMonthly, 150)) * cH
+      ctx.beginPath()
+      ctx.moveTo(pad.left, y)
+      ctx.lineTo(pad.left + cW, y)
+      ctx.stroke()
+      // Y轴标签
+      ctx.fillStyle = '#94a3b8'
+      ctx.font = '9px sans-serif'
+      ctx.textAlign = 'right'
+      ctx.fillText(String(v), pad.left - 6, y + 3)
+    })
+
+    // X轴月份标签
+    stats.monthlyTrend.forEach((m, i) => {
+      const x = pad.left + (i / 11) * cW
+      ctx.fillStyle = '#94a3b8'
+      ctx.font = '9px sans-serif'
+      ctx.textAlign = 'center'
+      ctx.fillText(m.month.replace('月', ''), x, H - 6)
+    })
+
+    // 已付折线（粉色）
+    drawLine(ctx, stats.monthlyTrend, m => m.paid, maxMonthly, '#f5a0b0', pad, cW, cH)
+    // 净花费折线（蓝色）
+    drawLine(ctx, stats.monthlyTrend, m => m.net, maxMonthly, '#5990d0', pad, cW, cH)
+  }, [stats.monthlyTrend, maxMonthly])
+
   return (
     <div className="stats">
       <div className="stats__header">
-        <div className="stats__title">年度统计</div>
+        <div className="stats__title">✨ 年度统计</div>
         <div className="stats__year-switch">
-          <button className="stats__year-btn" onClick={() => setViewYear(y => y - 1)}>◀</button>
+          <button className="stats__year-btn" onClick={() => setViewYear(y => y - 1)}>‹</button>
           <span className="stats__year-label">{viewYear}</span>
           <button 
             className="stats__year-btn" 
             onClick={() => setViewYear(y => y + 1)} 
             disabled={viewYear >= new Date().getFullYear()}
           >
-            ▶
+            ›
           </button>
         </div>
       </div>
 
       {/* 年度概览 */}
       <div className="stats__card stats__card--gradient">
-        <div className="stats__card-title">年度概览</div>
+        <div className="stats__card-title">📋 年度概览</div>
         <div className="stats__grid4">
           <div className="stats__metric">
+            <div className="stats__metric-icon stats__metric-icon--blue">🛒</div>
             <div className="stats__metric-value">{stats.year.orders}</div>
             <div className="stats__metric-label">订单</div>
           </div>
           <div className="stats__metric">
+            <div className="stats__metric-icon stats__metric-icon--pink">💳</div>
             <div className="stats__metric-value stats__metric--red">¥{formatMoney(stats.year.paid)}</div>
             <div className="stats__metric-label">已付</div>
           </div>
           <div className="stats__metric">
+            <div className="stats__metric-icon stats__metric-icon--amber">⏰</div>
             <div className="stats__metric-value stats__metric--orange">¥{formatMoney(stats.year.pending)}</div>
             <div className="stats__metric-label">待付</div>
           </div>
           <div className="stats__metric">
+            <div className="stats__metric-icon stats__metric-icon--green">↻</div>
             <div className="stats__metric-value stats__metric--green">¥{formatMoney(stats.year.refunded)}</div>
             <div className="stats__metric-label">已退</div>
           </div>
         </div>
-        <div className="stats__net-cost">
-          <span>实际花费</span>
-          <span className="stats__net-cost-num">¥{formatMoney(stats.year.netCost)}</span>
+
+        {/* 实际花费横条 */}
+        <div className="stats__net-cost-bar">
+          <span className="stats__net-cost-label">🐷 实际花费</span>
+          <span className="stats__net-cost-num">¥{formatMoney(stats.year.netCost)} ✨</span>
         </div>
+
         {/* 占比条 */}
         <div className="stats__cost-bar">
           {stats.year.paid > 0 && (
             <div 
               className="stats__cost-seg stats__cost-seg--paid" 
-              style={{ width: `${(stats.year.paid / (stats.year.paid + stats.year.pending + stats.year.pendingRefund)) * 100}%` }}
-            >
-              已付
-            </div>
+              style={{ width: `${(stats.year.paid / Math.max(stats.year.paid + stats.year.pending + stats.year.pendingRefund, 1)) * 100}%` }}
+            />
           )}
           {stats.year.pending > 0 && (
             <div 
               className="stats__cost-seg stats__cost-seg--pending" 
-              style={{ width: `${(stats.year.pending / (stats.year.paid + stats.year.pending + stats.year.pendingRefund)) * 100}%` }}
-            >
-              待付
-            </div>
+              style={{ width: `${(stats.year.pending / Math.max(stats.year.paid + stats.year.pending + stats.year.pendingRefund, 1)) * 100}%` }}
+            />
           )}
           {stats.year.pendingRefund > 0 && (
             <div 
               className="stats__cost-seg stats__cost-seg--refund" 
-              style={{ width: `${(stats.year.pendingRefund / (stats.year.paid + stats.year.pending + stats.year.pendingRefund)) * 100}%` }}
-            >
-              待退
-            </div>
+              style={{ width: `${(stats.year.pendingRefund / Math.max(stats.year.paid + stats.year.pending + stats.year.pendingRefund, 1)) * 100}%` }}
+            />
           )}
         </div>
       </div>
 
-      {/* 本月 & 进行中 */}
+      {/* 三张小卡片 */}
       <div className="stats__row2">
-        <div className="stats__card stats__card--compact">
+        <div className="stats__card stats__card--compact stats__card--blue">
+          <div className="stats__metric-icon-sm">📋</div>
           <div className="stats__metric-value">{stats.month.orders}</div>
           <div className="stats__metric-label">本月订单</div>
         </div>
-        <div className="stats__card stats__card--compact">
+        <div className="stats__card stats__card--compact stats__card--pink">
+          <div className="stats__metric-icon-sm">💳</div>
           <div className="stats__metric-value stats__metric--red">¥{formatMoney(stats.month.paid)}</div>
           <div className="stats__metric-label">本月已付</div>
         </div>
-        <div className="stats__card stats__card--compact stats__card--accent">
+        <div className="stats__card stats__card--compact stats__card--purple">
+          <div className="stats__metric-icon-sm">🪐</div>
           <div className="stats__metric-value">{stats.active}</div>
           <div className="stats__metric-label">进行中</div>
         </div>
@@ -110,28 +169,9 @@ export function StatsPage() {
 
       {/* 月度趋势 */}
       <div className="stats__card">
-        <div className="stats__card-title">月度趋势</div>
-        <div className="stats__bar-chart">
-          {stats.monthlyTrend.map(m => (
-            <div className="stats__bar-col" key={m.month}>
-              <div className="stats__bar-wrap">
-                <div
-                  className="stats__bar stats__bar--net"
-                  style={{ height: `${Math.max((m.net / maxMonthly) * 100, 0)}%` }}
-                  title={`净花费 ¥${m.net.toFixed(0)}`}
-                />
-                <div
-                  className="stats__bar stats__bar--paid"
-                  style={{
-                    height: `${Math.max(((m.paid - m.net) / maxMonthly) * 100, 0)}%`,
-                    bottom: `${Math.max((m.net / maxMonthly) * 100, 0)}%`,
-                  }}
-                  title={`已退 ¥${(m.paid - m.net).toFixed(0)}`}
-                />
-              </div>
-              <div className="stats__bar-label">{m.month.replace('月', '')}</div>
-            </div>
-          ))}
+        <div className="stats__card-title">📅 月度趋势</div>
+        <div className="stats__chart-wrap">
+          <canvas ref={canvasRef} className="stats__line-canvas" />
         </div>
         <div className="stats__legend">
           <span className="stats__legend-item">
@@ -245,8 +285,62 @@ export function StatsPage() {
 
       {/* 导出按钮 */}
       <button className="stats__export-btn" onClick={handleExportCSV}>
-        📥 导出 CSV
+        ⬇ 导出 CSV
       </button>
     </div>
   )
+}
+
+/* ── 折线图绘制辅助 ───────────────── */
+function drawLine(
+  ctx: CanvasRenderingContext2D,
+  data: { month: string; paid: number; net: number }[],
+  getter: (d: typeof data[0]) => number,
+  maxVal: number,
+  color: string,
+  pad: { top: number; right: number; bottom: number; left: number },
+  cW: number,
+  cH: number
+) {
+  if (!data.length) return
+  const points = data.map((d, i) => ({
+    x: pad.left + (i / Math.max(data.length - 1, 1)) * cW,
+    y: pad.top + cH - (getter(d) / Math.max(maxVal, 1)) * cH,
+  }))
+
+  // 渐变填充区域
+  ctx.beginPath()
+  ctx.moveTo(points[0].x, pad.top + cH)
+  points.forEach(p => ctx.lineTo(p.x, p.y))
+  ctx.lineTo(points[points.length - 1].x, pad.top + cH)
+  ctx.closePath()
+  const grad = ctx.createLinearGradient(0, pad.top, 0, pad.top + cH)
+  grad.addColorStop(0, color + '30')
+  grad.addColorStop(1, color + '06')
+  ctx.fillStyle = grad
+  ctx.fill()
+
+  // 线条
+  ctx.beginPath()
+  ctx.moveTo(points[0].x, points[0].y)
+  for (let i = 1; i < points.length; i++) {
+    const xc = (points[i - 1].x + points[i].x) / 2
+    const yc = (points[i - 1].y + points[i].y) / 2
+    ctx.quadraticCurveTo(points[i - 1].x, points[i - 1].y, xc, yc)
+  }
+  ctx.lineTo(points[points.length - 1].x, points[points.length - 1].y)
+  ctx.strokeStyle = color
+  ctx.lineWidth = 2
+  ctx.stroke()
+
+  // 数据点
+  points.forEach(p => {
+    ctx.beginPath()
+    ctx.arc(p.x, p.y, 2.5, 0, Math.PI * 2)
+    ctx.fillStyle = color
+    ctx.fill()
+    ctx.strokeStyle = '#fff'
+    ctx.lineWidth = 1
+    ctx.stroke()
+  })
 }

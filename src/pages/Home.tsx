@@ -29,28 +29,37 @@ export function HomePage() {
 
   return (
     <div className="home">
-      <div className="home__greeting">苏茜周边拼团账本</div>
-      <div className="home__sub">{year}年 · 共 {state.orders.length} 笔记录</div>
+      {/* 标题区 */}
+      <div className="home__hero">
+        <div className="home__greeting">📋 苏茜周边拼团账本 ✨</div>
+        <div className="home__sub">{year}年 · 共 {state.orders.length} 笔记录</div>
+      </div>
 
-      {/* 统计卡片 */}
+      {/* 三张统计卡片 */}
       <div className="home__overview">
-        <div className="home__stat">
-          <div className="home__stat-value home__stat-value--warn">{activeOrders.length}</div>
+        <div className="home__stat home__stat--amber">
+          <div className="home__stat-icon">📋</div>
+          <div className="home__stat-value">{activeOrders.length}</div>
           <div className="home__stat-label">未完成</div>
         </div>
-        <div className="home__stat">
-          <div className="home__stat-value home__stat-value--danger">{refundCount}</div>
+        <div className="home__stat home__stat--pink">
+          <div className="home__stat-icon">💳</div>
+          <div className="home__stat-value">{refundCount}</div>
           <div className="home__stat-label">待退款</div>
         </div>
-        <div className="home__stat">
-          <div className="home__stat-value">¥{formatMoney(yearPaid)}</div>
+        <div className="home__stat home__stat--blue">
+          <div className="home__stat-icon">¥</div>
+          <div className="home__stat-value home__stat--money">¥{formatMoney(yearPaid)}</div>
           <div className="home__stat-label">今年已付</div>
         </div>
       </div>
 
       {/* 待办列表 */}
       {todoGroups.length === 0 && incompleteOrders.length === 0 && (
-        <div className="home__empty">🎉 暂无待办，一切顺利！</div>
+        <div className="home__empty-wrap">
+          <div className="home__empty-emoji">🎉</div>
+          <div className="home__empty-text">暂无待办，一切顺利！</div>
+        </div>
       )}
 
       {todoGroups.map(g => (

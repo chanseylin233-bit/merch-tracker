@@ -41,7 +41,6 @@ export function RecordsPage() {
   const storage = getStorageUsage()
   const showCapacityWarning = storage.percent > 0.8
 
-
   const activeFilterCount = [filters.status, filters.productType, filters.year]
     .filter(v => v !== '全部').length + (filters.keyword ? 1 : 0) + (filters.characterTag ? 1 : 0)
 
@@ -96,7 +95,7 @@ export function RecordsPage() {
 
       <div className="records__header">
         <div className="records__title-row">
-          <div className="records__title">拼团记录</div>
+          <div className="records__title">📋 拼团记录 ✨</div>
           <button 
             className={`records__select-btn ${selectMode ? 'active' : ''}`}
             onClick={() => {
@@ -104,19 +103,19 @@ export function RecordsPage() {
               setSelectedIds(new Set())
             }}
           >
-            {selectMode ? '取消' : '多选'}
+            ✓ 多选
           </button>
         </div>
         
         <div className="records__toolbar">
           <input 
             className="records__search" 
-            placeholder="搜索…" 
+            placeholder="🔍 搜索…" 
             value={search} 
             onChange={e => setSearch(e.target.value)} 
           />
           <button className="records__filter-btn" onClick={() => setFilterOpen(true)}>
-            筛选{activeFilterCount > 0 ? ` (${activeFilterCount})` : ''}
+            🔽 筛选{activeFilterCount > 0 ? ` (${activeFilterCount})` : ''}
           </button>
         </div>
         
@@ -131,9 +130,13 @@ export function RecordsPage() {
         )}
       </div>
 
+      {/* 空状态 / 列表 */}
       <div className="records__list">
         {displayList.length === 0 ? (
-          <div className="records__empty">暂无记录</div>
+          <div className="records__empty-wrap">
+            <div className="records__empty-emoji">📋</div>
+            <div className="records__empty-text">暂无记录</div>
+          </div>
         ) : (
           displayList.map(o => (
             <div key={o.id} className="records__item">

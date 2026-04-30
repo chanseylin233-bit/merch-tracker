@@ -28,7 +28,7 @@ export function OrderCard({ order, onClick }: Props) {
         {order.characterTags.map(t => (
           <span className="order-card__tag" key={t}>{t}</span>
         ))}
-        <span className="order-card__tag">{order.productType}</span>
+        <span className="order-card__tag order-card__tag--type">{order.productType}</span>
         {order.quantity > 1 && <span className="order-card__tag">×{order.quantity}</span>}
       </div>
 
