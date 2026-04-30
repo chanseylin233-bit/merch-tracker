@@ -4,6 +4,7 @@
   box-sizing: border-box;
 }
 
+/* ── 默认变量（warm-pink 主题） ── */
 :root {
   --primary: #a78bfa;
   --primary-soft: rgba(167,139,250,.1);
@@ -33,6 +34,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: transparent;
+  transition: background .3s ease, color .3s ease;
 }
 
 #root {
@@ -43,6 +45,7 @@ body {
   background: var(--bg-solid);
   position: relative;
   padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+  transition: background .3s ease;
 }
 
 /* iOS Safari 安全区域 */
@@ -52,7 +55,9 @@ body {
   }
 }
 
-/* ── 装饰性背景图案（星星/圆点） ── */
+/* ══════════════════════════════════════
+   warm-pink 主题：装饰性背景图案
+   ══════════════════════════════════════ */
 #root::before {
   content: '';
   position: fixed;
@@ -69,6 +74,200 @@ body {
     radial-gradient(circle at 75% 82%, rgba(52,211,153,.10) 2px, transparent 2.5px),
     radial-gradient(circle at 40% 92%, rgba(245,160,176,.14) 1.5px, transparent 2px);
   background-size: 100% 100%;
+}
+
+/* ══════════════════════════════════════
+   clean-purple 主题：纯白底，无装饰
+   ══════════════════════════════════════ */
+body[data-theme='clean-purple'] #root::before {
+  display: none;
+}
+
+body[data-theme='clean-purple'] {
+  --border: #e2e8f0;
+}
+
+/* ══════════════════════════════════════
+   clean-purple 主题：组件级覆盖
+   ══════════════════════════════════════ */
+
+/* TabBar — 纯紫圆形+按钮 */
+body[data-theme='clean-purple'] .tab-bar {
+  background: #fff;
+  border-top-color: #e2e8f0;
+  border-radius: 0;
+  box-shadow: 0 -1px 12px rgba(124,58,237,.06);
+}
+body[data-theme='clean-purple'] .tab-bar__item--add {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  box-shadow:
+    0 4px 16px rgba(124,58,237,.35),
+    0 2px 6px rgba(109,40,217,.2),
+    inset 0 1px 0 rgba(255,255,255,.2);
+  border-color: #fff;
+}
+body[data-theme='clean-purple'] .tab-bar__item.active {
+  background: rgba(124,58,237,.08);
+  color: #7c3aed;
+}
+
+/* 卡片 — 干净白底+淡灰边框 */
+body[data-theme='clean-purple'] .home__stat,
+body[data-theme='clean-purple'] .order-card,
+body[data-theme='clean-purple'] .stats__card,
+body[data-theme='clean-purple'] .settings__card,
+body[data-theme='clean-purple'] .detail__section {
+  border-color: #e2e8f0;
+  box-shadow: 0 1px 4px rgba(0,0,0,.04);
+}
+body[data-theme='clean-purple'] .order-card::before {
+  background: linear-gradient(90deg, #7c3aed, #a78bfa, #3b82f6);
+}
+
+/* 统计卡片图标 — 纯色底 */
+body[data-theme='clean-purple'] .home__stat--amber .home__stat-icon { background: #fef3c7; color: #d97706; }
+body[data-theme='clean-purple'] .home__stat--pink .home__stat-icon { background: #ede9fe; color: #7c3aed; }
+body[data-theme='clean-purple'] .home__stat--blue .home__stat-icon { background: #dbeafe; color: #2563eb; }
+
+/* 三小卡片配色 */
+body[data-theme='clean-purple'] .stats__card--blue {
+  background: #eff6ff;
+  border-color: rgba(59,130,246,.15);
+}
+body[data-theme='clean-purple'] .stats__card--blue .stats__metric-value { color: #2563eb; }
+body[data-theme='clean-purple'] .stats__card--pink {
+  background: #fdf4ff;
+  border-color: rgba(217,70,239,.12);
+}
+body[data-theme='clean-purple'] .stats__card--pink .stats__metric-value { color: #db2777; }
+body[data-theme='clean-purple'] .stats__card--purple {
+  background: #ede9fe;
+  border-color: rgba(124,58,237,.15);
+}
+body[data-theme='clean-purple'] .stats__card--purple .stats__metric-value { color: #7c3aed; }
+
+/* 概览卡片 */
+body[data-theme='clean-purple'] .stats__card--gradient {
+  background: #faf5ff;
+  border-color: #ede9fe;
+  box-shadow: 0 2px 12px rgba(124,58,237,.06);
+}
+
+/* 实际花费横条 */
+body[data-theme='clean-purple'] .stats__net-cost-bar {
+  background: linear-gradient(135deg, #ede9fe, #ddd6fe);
+  border-color: rgba(124,58,237,.08);
+}
+body[data-theme='clean-purple'] .stats__net-cost-num { color: #7c3aed; }
+
+/* 年度切换器 */
+body[data-theme='clean-purple'] .stats__year-switch {
+  border-color: #e2e8f0;
+  box-shadow: 0 1px 6px rgba(124,58,237,.05);
+}
+body[data-theme='clean-purple'] .stats__year-btn { color: #7c3aed; }
+
+/* 头部 */
+body[data-theme='clean-purple'] .records__header {
+  background: rgba(255,255,255,.9);
+  border-radius: 0;
+}
+body[data-theme='clean-purple'] .records__search,
+body[data-theme='clean-purple'] .records__filter-btn {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+body[data-theme='clean-purple'] .records__search:focus {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124,58,237,.1);
+}
+body[data-theme='clean-purple'] .records__select-btn {
+  color: #7c3aed;
+  background: rgba(124,58,237,.06);
+  border-color: rgba(124,58,237,.2);
+}
+body[data-theme='clean-purple'] .records__select-btn.active {
+  background: #7c3aed;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(124,58,237,.25);
+}
+body[data-theme='clean-purple'] .records__active-chip {
+  background: rgba(124,58,237,.08);
+  color: #7c3aed;
+  border-color: rgba(124,58,237,.15);
+}
+
+/* 类型标签（设置页）— 紫色系 */
+body[data-theme='clean-purple'] .settings__type-chip:nth-child(1) { background: #7c3aed; } /* 收藏卡-紫 */
+body[data-theme='clean-purple'] .settings__type-chip:nth-child(2) { background: #a78bfa; } /* 扑克牌-浅紫 */
+body[data-theme='clean-purple'] .settings__type-chip:nth-child(3) { background: #c4b5fd; } /* 旋转立牌-更浅 */
+body[data-theme='clean-purple'] .settings__type-chip:nth-child(4) { background: #ddd6fe; color: #6d28d9 !important; } /* 色纸-极浅 */
+body[data-theme='clean-purple'] .settings__type-chip:nth-child(5) { background: #ede9fe; color: #7c3aed !important; } /* 明信片-最浅 */
+body[data-theme='clean-purple'] .settings__type-chip:nth-child(6) { background: #818cf8; } /* 镭射票-靛 */
+body[data-theme='clean-purple'] .settings__type-chip:nth-child(7) { background: #a78bfa; } /* 透卡-紫 */
+body[data-theme='clean-purple'] .settings__type-chip:nth-child(n+8) { background: #94a3b8; }
+
+body[data-theme='clean-purple'] .settings__btn--gradient {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  box-shadow: 0 3px 12px rgba(124,58,237,.3);
+}
+body[data-theme='clean-purple'] .settings__input:focus {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124,58,237,.1);
+}
+
+/* FilterDrawer */
+body[data-theme='clean-purple'] .filter-drawer__chip.active {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  box-shadow: 0 3px 10px rgba(124,58,237,.25);
+}
+body[data-theme='clean-purple'] .filter-drawer__chip.active:hover {
+  box-shadow: 0 3px 14px rgba(124,58,237,.35);
+}
+body[data-theme='clean-purple'] .filter-drawer__btn--apply {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  box-shadow: 0 3px 12px rgba(124,58,237,.25);
+}
+
+/* OrderCard 状态标签 */
+body[data-theme='clean-purple'] .order-card__tag--type {
+  background: rgba(124,58,237,.08);
+  color: #7c3aed;
+  border-color: rgba(124,58,237,.15);
+}
+body[data-theme='clean-purple'] .order-card__next { color: #7c3aed; }
+
+/* Detail 页面 */
+body[data-theme='clean-purple'] .detail__quick-btn--next {
+  background: linear-gradient(135deg, #7c3aed, #a78bfa);
+  box-shadow: 0 2px 8px rgba(124,58,237,.25);
+}
+body[data-theme='clean-purple'] .detail__action-btn:not(.detail__action-btn--secondary):not(.detail__action-btn--danger) {
+  background: #7c3aed;
+}
+body[data-theme='clean-purple'] .detail__next-action span { color: #7c3aed; }
+body[data-theme='clean-purple'] .detail__back { color: #7c3aed; }
+body[data-theme='clean-purple'] .detail__tag { background: rgba(124,58,237,.08); color: #7c3aed; }
+
+/* AddEdit 按钮 */
+body[data-theme='clean-purple'] .add__btn--save {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  box-shadow: 0 3px 12px rgba(124,58,237,.25);
+}
+
+/* 导出按钮 */
+body[data-theme='clean-purple'] .stats__export-btn {
+  border-color: #7c3aed;
+  color: #7c3aed;
+}
+body[data-theme='clean-purple'] .stats__export-btn:active { background: rgba(124,58,237,.06); }
+
+/* 表单 focus */
+body[data-theme='clean-purple'] .form-input:focus,
+body[data-theme='clean-purple'] .form-select:focus,
+body[data-theme='clean-purple'] .form-textarea:focus {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124,58,237,.1);
 }
 
 /* 通用表单样式 */

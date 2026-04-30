@@ -1,5 +1,5 @@
 import type { AppState } from '../../types'
-import { DEFAULT_PRODUCT_TYPES } from '../../types'
+import { DEFAULT_PRODUCT_TYPES, type Theme } from '../../types'
 import { ordersReducer } from './ordersReducer'
 
 type AppAction =
@@ -16,6 +16,7 @@ type AppAction =
   | { type: 'CLEAR_ALL' }
   | { type: 'ADD_PRODUCT_TYPE'; name: string }
   | { type: 'REMOVE_PRODUCT_TYPE'; name: string }
+  | { type: 'SET_THEME'; theme: Theme }
 
 export function appReducer(state: AppState, action: AppAction): AppState {
   switch (action.type) {
@@ -41,6 +42,12 @@ export function appReducer(state: AppState, action: AppAction): AppState {
       return {
         ...state,
         customProductTypes: state.customProductTypes.filter(t => t !== action.name),
+      }
+
+    case 'SET_THEME':
+      return {
+        ...state,
+        theme: action.theme,
       }
       
     default:

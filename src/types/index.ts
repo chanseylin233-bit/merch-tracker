@@ -168,9 +168,13 @@ export interface Order {
   updatedAt: string
 }
 
+// ── Theme ─────────────────────────────────────────────────────
+export type Theme = 'warm-pink' | 'clean-purple'
+
 // ── App State ───────────────────────────────────────────────────
 export interface AppState {
   orders: Order[]
   customProductTypes: string[]
   lastExportTime?: string
+  theme: Theme
 }

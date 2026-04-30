@@ -12,6 +12,7 @@ export function loadState(): AppState {
       orders: Array.isArray(parsed.orders) ? parsed.orders : [],
       customProductTypes: Array.isArray(parsed.customProductTypes) ? parsed.customProductTypes : [],
       lastExportTime: parsed.lastExportTime,
+      theme: (parsed.theme === 'clean-purple' ? 'clean-purple' : 'warm-pink'),
     }
   } catch {
     return { orders: [], customProductTypes: [] }

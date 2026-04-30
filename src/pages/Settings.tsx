@@ -1,10 +1,10 @@
 import { useState, useRef } from 'react'
 import { useApp } from '../context/AppContext'
-import { DEFAULT_PRODUCT_TYPES } from '../types'
+import { DEFAULT_PRODUCT_TYPES, type Theme } from '../types'
 import './Settings.css'
 
 export function SettingsPage() {
-  const { state, dispatch } = useApp()
+  const { state, dispatch, theme, setTheme } = useApp()
   const [newType, setNewType] = useState('')
   const [showImport, setShowImport] = useState(false)
   const [importText, setImportText] = useState('')
@@ -109,6 +109,32 @@ export function SettingsPage() {
   return (
     <div className="settings">
       <div className="settings__title">设置 ✨</div>
+
+      {/* 主题切换 */}
+      <div className="settings__card">
+        <div className="settings__card-header">
+          <span className="settings__card-icon settings__card-icon--purple">🎨</span>
+          <span className="settings__card-title">主题风格</span>
+        </div>
+        <div className="settings__theme-switcher">
+          <button
+            className={`settings__theme-opt ${theme === 'warm-pink' ? 'active' : ''}`}
+            onClick={() => setTheme('warm-pink')}
+          >
+            <span className="settings__theme-preview settings__theme-preview--pink" />
+            <span className="settings__theme-name">粉紫暖色</span>
+            {theme === 'warm-pink' && <span className="settings__theme-check">✓</span>}
+          </button>
+          <button
+            className={`settings__theme-opt ${theme === 'clean-purple' ? 'active' : ''}`}
+            onClick={() => setTheme('clean-purple')}
+          >
+            <span className="settings__theme-preview settings__theme-preview--purple" />
+            <span className="settings__theme-name">极简紫</span>
+            {theme === 'clean-purple' && <span className="settings__theme-check">✓</span>}
+          </button>
+        </div>
+      </div>
 
       {/* 数据统计 */}
       <div className="settings__card">
