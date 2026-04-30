@@ -2,11 +2,11 @@ import { NavLink, useLocation } from 'react-router-dom'
 import './TabBar.css'
 
 const tabs = [
-  { path: '/', icon: '🏠', label: '首页' },
-  { path: '/records', icon: '📋', label: '记录' },
-  { path: '/add', icon: '＋', label: '新增', isAdd: true },
-  { path: '/stats', icon: '📊', label: '统计' },
-  { path: '/settings', icon: '⚙️', label: '设置' },
+  { path: '/', icon: '⌂', label: '首页' },
+  { path: '/records', icon: '☰', label: '记录' },
+  { path: '/add', icon: '✚', label: '新增', isAdd: true },
+  { path: '/stats', icon: '◎', label: '统计' },
+  { path: '/settings', icon: '⚙', label: '设置' },
 ]
 
 export function TabBar() {

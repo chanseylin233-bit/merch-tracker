@@ -4,15 +4,15 @@
 .records__capacity-warning {
   margin: 0 -16px;
   padding: 8px 16px;
-  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  background: linear-gradient(135deg, #fcddd3 0%, #e8cfc0 100%);
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: 12px;
-  color: #92400e;
+  color: #6b4423;
 }
 .records__capacity-warning button {
-  background: #f59e0b;
+  background: #cca273;
   color: #fff;
   border: none;
   padding: 4px 10px;
@@ -24,22 +24,22 @@
 .records__header {
   position: sticky;
   top: 0;
-  background: #f8fafc;
+  background: #fcf6f0;
   z-index: 10;
   padding: 12px 0 8px;
 }
 .records__title-row { display: flex; justify-content: space-between; align-items: center; }
-.records__title { font-size: 18px; font-weight: 700; color: #1e293b; margin-bottom: 8px; }
+.records__title { font-size: 18px; font-weight: 700; color: #102a6b; margin-bottom: 8px; }
 .records__select-btn {
   font-size: 13px;
-  color: #6366f1;
+  color: #102a6b;
   background: none;
-  border: 1px solid #6366f1;
+  border: 1px solid #102a6b;
   padding: 4px 10px;
   border-radius: 4px;
   cursor: pointer;
 }
-.records__select-btn.active { background: #6366f1; color: #fff; }
+.records__select-btn.active { background: #102a6b; color: #fff; }
 .records__toolbar {
   display: flex;
   gap: 8px;
@@ -49,16 +49,16 @@
   flex: 1;
   padding: 8px 12px;
   border-radius: 8px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #d8cfc4;
   font-size: 13px;
   outline: none;
   background: #fff;
 }
-.records__search:focus { border-color: #6366f1; }
+.records__search:focus { border-color: #102a6b; }
 .records__filter-btn {
   padding: 8px 12px;
   border-radius: 8px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #d8cfc4;
   background: #fff;
   font-size: 13px;
   cursor: pointer;
@@ -73,31 +73,31 @@
   font-size: 11px;
   padding: 2px 8px;
   border-radius: 10px;
-  background: #ede9fe;
-  color: #6366f1;
+  background: rgba(16,42,107,.08);
+  color: #102a6b;
 }
 .records__list { margin-top: 8px; }
 .records__item { display: flex; align-items: center; gap: 8px; }
 .records__checkbox {
   width: 18px;
   height: 18px;
-  accent-color: #6366f1;
+  accent-color: #102a6b;
   cursor: pointer;
   flex-shrink: 0;
 }
 .records__card-wrap { flex: 1; min-width: 0; }
-.records__empty { text-align: center; color: #94a3b8; font-size: 13px; padding: 40px 0; }
+.records__empty { text-align: center; color: #718096; font-size: 13px; padding: 40px 0; }
 
 /* 批量操作栏 */
 .records__batch-bar {
   position: fixed;
-  bottom: calc(56px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(58px + env(safe-area-inset-bottom, 0px));
   left: 0;
   right: 0;
   max-width: 480px;
   margin: 0 auto;
   background: #fff;
-  border-top: 1px solid #e2e8f0;
+  border-top: 1px solid #d8cfc4;
   padding: 8px 16px;
   display: flex;
   justify-content: space-between;
@@ -108,24 +108,24 @@
 .records__batch-link {
   background: none;
   border: none;
-  color: #6366f1;
+  color: #102a6b;
   font-size: 13px;
   cursor: pointer;
   padding: 4px;
 }
-.records__batch-count { font-size: 12px; color: #64748b; }
+.records__batch-count { font-size: 12px; color: #4a5568; }
 .records__batch-actions { display: flex; gap: 8px; }
 .records__batch-btn {
   padding: 6px 12px;
   border-radius: 6px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #d8cfc4;
   background: #fff;
   font-size: 13px;
   cursor: pointer;
 }
 .records__batch-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-.records__batch-btn--danger { color: #ef4444; border-color: #fecaca; }
-.records__batch-btn--danger:not(:disabled):hover { background: #fef2f2; }
+.records__batch-btn--danger { color: #c45c4a; border-color: #f5d0c8; }
+.records__batch-btn--danger:not(:disabled):hover { background: #fdf0ed; }
 
 /* 批量改状态弹窗 */
 .records__modal-overlay {
@@ -168,7 +168,7 @@
   transition: all .15s;
 }
 .records__modal-status.active {
-  background: #ede9fe;
+  background: rgba(16,42,107,.08);
   border-width: 2px;
 }
 .records__modal-actions {
@@ -184,6 +184,6 @@
   font-size: 14px;
   cursor: pointer;
 }
-.records__modal-cancel { color: #64748b; }
-.records__modal-confirm { color: #6366f1; font-weight: 600; }
+.records__modal-cancel { color: #4a5568; }
+.records__modal-confirm { color: #102a6b; font-weight: 600; }
 .records__modal-confirm:disabled { opacity: 0.4; cursor: not-allowed; }

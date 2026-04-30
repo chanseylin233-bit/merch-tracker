@@ -233,7 +233,7 @@ export function StatsPage() {
               <div
                 className="stats__bubble"
                 key={status}
-                style={{ '--bubble-color': STATUS_COLORS[status] || '#94a3b8' } as React.CSSProperties}
+                style={{ '--bubble-color': STATUS_COLORS[status] || '#718096' } as React.CSSProperties}
               >
                 <div className="stats__bubble-num">{count}</div>
                 <div className="stats__bubble-label">{status}</div>

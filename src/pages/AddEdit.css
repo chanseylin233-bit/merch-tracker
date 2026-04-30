@@ -8,15 +8,15 @@
 }
 .add__back {
   font-size: 14px;
-  color: #6366f1;
+  color: #102a6b;
   cursor: pointer;
 }
-.add__title { font-size: 18px; font-weight: 700; color: #1e293b; flex: 1; }
+.add__title { font-size: 18px; font-weight: 700; color: #102a6b; flex: 1; }
 .add__unsaved-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #f97316;
+  background: #cca273;
   animation: pulse-dot 2s infinite;
 }
 @keyframes pulse-dot {
@@ -30,12 +30,12 @@
 .add__group-label {
   font-size: 11px;
   font-weight: 700;
-  color: #94a3b8;
+  color: #718096;
   text-transform: uppercase;
   letter-spacing: .5px;
   padding-top: 8px;
   margin-top: 2px;
-  border-top: 1px solid #f1f5f9;
+  border-top: 1px solid #e8dfd5;
 }
 .add__group-label:first-of-type { border-top: none; padding-top: 0; margin-top: 0; }
 
@@ -44,7 +44,7 @@
   background: none;
   border: none;
   font-size: 12px;
-  color: #6366f1;
+  color: #102a6b;
   cursor: pointer;
   padding: 3px 0;
   text-align: left;
@@ -71,7 +71,7 @@
 .add .form-input, .add .form-select, .add .form-textarea {
   padding: 7px 10px;
   border-radius: 6px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #d8cfc4;
   font-size: 13px;
   outline: none;
   background: #fff;
@@ -79,8 +79,8 @@
   box-sizing: border-box;
 }
 .form-input:focus, .form-select:focus, .form-textarea:focus {
-  border-color: #6366f1;
-  box-shadow: 0 0 0 2px rgba(99,102,241,.1);
+  border-color: #102a6b;
+  box-shadow: 0 0 0 2px rgba(16,42,107,.08);
 }
 .form-textarea { resize: vertical; min-height: 60px; }
 .add .form-row {
@@ -93,21 +93,21 @@
 .amount-input {
   display: flex;
   align-items: center;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #d8cfc4;
   border-radius: 6px;
   background: #fff;
   overflow: hidden;
   transition: all .15s;
 }
 .amount-input:focus-within {
-  border-color: #6366f1;
-  box-shadow: 0 0 0 2px rgba(99,102,241,.1);
+  border-color: #102a6b;
+  box-shadow: 0 0 0 2px rgba(16,42,107,.08);
 }
 .amount-input__prefix {
   padding: 7px 0 7px 10px;
   font-size: 13px;
   font-weight: 600;
-  color: #94a3b8;
+  color: #718096;
   user-select: none;
 }
 .amount-input__field {
@@ -127,14 +127,14 @@
   gap: 4px;
   align-items: center;
   padding: 5px 8px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #d8cfc4;
   border-radius: 6px;
   background: #fff;
   min-height: 34px;
 }
 .add__tags-input:focus-within {
-  border-color: #6366f1;
-  box-shadow: 0 0 0 2px rgba(99,102,241,.1);
+  border-color: #102a6b;
+  box-shadow: 0 0 0 2px rgba(16,42,107,.08);
 }
 .add__tag-chip {
   display: inline-flex;
@@ -143,8 +143,8 @@
   font-size: 11px;
   padding: 2px 7px;
   border-radius: 10px;
-  background: #ede9fe;
-  color: #6366f1;
+  background: rgba(16,42,107,.08);
+  color: #102a6b;
 }
 .add__tag-remove {
   cursor: pointer;
@@ -162,23 +162,23 @@
 }
 .add__tag-suggestions-label {
   font-size: 10px;
-  color: #94a3b8;
+  color: #718096;
   font-weight: 600;
 }
 .add__tag-suggestion-btn {
   font-size: 11px;
   padding: 2px 8px;
   border-radius: 10px;
-  border: 1px solid #e2e8f0;
-  background: #f8fafc;
-  color: #475569;
+  border: 1px solid #d8cfc4;
+  background: #fcf6f0;
+  color: #4a5568;
   cursor: pointer;
   transition: all .15s;
 }
 .add__tag-suggestion-btn:hover {
-  background: #ede9fe;
-  color: #6366f1;
-  border-color: #c7d2fe;
+  background: rgba(16,42,107,.08);
+  color: #102a6b;
+  border-color: #b8bcc8;
 }
 
 /* ── 拼团群下拉 ──────────────────────── */
@@ -189,9 +189,9 @@
   top: 100%;
   z-index: 10;
   background: #fff;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #d8cfc4;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  box-shadow: 0 4px 12px rgba(16,42,107,.08);
   max-height: 160px;
   overflow-y: auto;
   margin-top: 4px;
@@ -199,12 +199,12 @@
 .add__dropdown-item {
   padding: 6px 10px;
   font-size: 12px;
-  color: #475569;
+  color: #4a5568;
   cursor: pointer;
   transition: background .1s;
 }
 .add__dropdown-item:hover {
-  background: #f1f5f9;
+  background: #e8dfd5;
 }
 .add__dropdown-item:first-child {
   border-radius: 8px 8px 0 0;
@@ -227,5 +227,5 @@
 .add .form-textarea {
   min-height: 48px;
 }
-.add__btn--save { background: #6366f1; color: #fff; }
-.add__btn--cancel { background: #f1f5f9; color: #475569; }
+.add__btn--save { background: #102a6b; color: #fff; }
+.add__btn--cancel { background: #e8dfd5; color: #4a5568; }

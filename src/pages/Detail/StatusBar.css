@@ -20,7 +20,7 @@
   right: 0;
   top: 50%;
   height: 2px;
-  background: #e2e8f0;
+  background: #d8cfc4;
   transform: translateY(-50%);
   z-index: 0;
 }
@@ -75,7 +75,7 @@
 .status-bar__percent {
   text-align: right;
   font-size: 12px;
-  color: #94a3b8;
+  color: #718096;
   margin-top: 4px;
 }
 
@@ -85,15 +85,15 @@
   gap: 6px;
   margin-top: 12px;
   padding-top: 12px;
-  border-top: 1px solid #f1f5f9;
+  border-top: 1px solid #e8dfd5;
 }
 
 .status-bar__chip {
   padding: 4px 10px;
   border-radius: 12px;
-  border: 1px solid var(--chip-color, #6366f1);
+  border: 1px solid var(--chip-color, #102a6b);
   background: transparent;
-  color: var(--chip-color, #6366f1);
+  color: var(--chip-color, #102a6b);
   font-size: 12px;
   cursor: pointer;
   transition: all 0.2s;

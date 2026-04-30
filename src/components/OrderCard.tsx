@@ -18,7 +18,7 @@ export function OrderCard({ order, onClick }: Props) {
         <span className="order-card__title">{order.title}</span>
         <span
           className="status-tag"
-          style={{ background: STATUS_COLORS[order.status] ?? '#94a3b8' }}
+          style={{ background: STATUS_COLORS[order.status] ?? '#718096' }}
         >
           {order.status}
         </span>
@@ -45,7 +45,7 @@ export function OrderCard({ order, onClick }: Props) {
             ¥{isDone ? finalCost.toFixed(2) : order.paidAmount.toFixed(2)}
           </span>
           {!isDone && order.pendingAmount > 0 && (
-            <span style={{ fontSize: 11, color: '#f97316', marginLeft: 6 }}>
+            <span style={{ fontSize: 11, color: '#cca273', marginLeft: 6 }}>
               待付 ¥{order.pendingAmount.toFixed(2)}
             </span>
           )}

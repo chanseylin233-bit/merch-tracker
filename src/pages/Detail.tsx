@@ -102,7 +102,7 @@ export function DetailPage() {
   }
 
   // ── 计算 ────────────────────────────────────────
-  const statusColor = STATUS_COLORS[order.status] || '#6366f1'
+  const statusColor = STATUS_COLORS[order.status] || '#102a6b'
   const nextAction = order.customNextAction || NEXT_ACTION_MAP[order.status]
   const progressPercent = isTerminated
     ? 100
@@ -124,7 +124,7 @@ export function DetailPage() {
           {STATUS_STEPS.map((s, i) => {
             const isPast = currentStep >= 0 && i < currentStep
             const isCurrent = s === order.status
-            const color = STATUS_COLORS[s] || '#94a3b8'
+            const color = STATUS_COLORS[s] || '#718096'
             return (
               <div
                 key={s}
@@ -189,7 +189,7 @@ export function DetailPage() {
                 key={s}
                 className={`detail__status-chip ${s === order.status ? 'active' : ''}`}
                 style={{
-                  '--chip-color': STATUS_COLORS[s] || '#6366f1',
+                  '--chip-color': STATUS_COLORS[s] || '#102a6b',
                 } as React.CSSProperties}
                 onClick={() => handleSetStatus(s)}
               >
@@ -295,7 +295,7 @@ export function DetailPage() {
             <span className="detail__val">¥{order.unitPrice.toFixed(2)}</span>
           </div>
         )}
-        <div className="detail__row" style={{ borderTop: '1px solid #f1f5f9', paddingTop: 8, marginTop: 4 }}>
+        <div className="detail__row" style={{ borderTop: '1px solid #e8dfd5', paddingTop: 8, marginTop: 4 }}>
           <span className="detail__key" style={{ fontWeight: 600 }}>实际成本</span>
           <span className="detail__val detail__val--money">¥{(order.paidAmount - order.refundedAmount).toFixed(2)}</span>
         </div>
@@ -517,7 +517,7 @@ export function DetailPage() {
           <div className="detail__timeline">
             {order.progressLog.slice().reverse().map(e => (
               <div className="detail__timeline-item" key={e.id}>
-                <div className="detail__timeline-dot" style={{ background: STATUS_COLORS[e.status] || '#94a3b8' }} />
+                <div className="detail__timeline-dot" style={{ background: STATUS_COLORS[e.status] || '#718096' }} />
                 <div className="detail__timeline-content">
                   <div className="detail__timeline-status" style={{ color: STATUS_COLORS[e.status] }}>{e.status}</div>
                   <div className="detail__timeline-date">{formatTime(e.date)}</div>

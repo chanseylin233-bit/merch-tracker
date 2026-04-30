@@ -94,7 +94,7 @@ export function FilterDrawer({ open, filters, onChange, onClose, characterTags }
             value={draft.keyword}
             onChange={e => setDraft({ ...draft, keyword: e.target.value })}
             placeholder="搜索制品、团长、群名…"
-            style={{ width: '100%', padding: '8px 10px', borderRadius: 8, border: '1px solid #e2e8f0', fontSize: 13 }}
+            style={{ width: '100%', padding: '8px 10px', borderRadius: 8, border: '1px solid #d8cfc4', fontSize: 13 }}
           />
         </div>
 

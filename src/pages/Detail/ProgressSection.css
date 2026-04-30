@@ -15,19 +15,19 @@
 .progress-section__title {
   font-size: 15px;
   font-weight: 600;
-  color: #1e293b;
+  color: #102a6b;
 }
 
 .progress-section__add {
   font-size: 13px;
-  color: #8b5cf6;
+  color: #015185;
   background: transparent;
   border: none;
   cursor: pointer;
 }
 
 .progress-section__form {
-  background: #f8fafc;
+  background: #fcf6f0;
   border-radius: 8px;
   padding: 12px;
   margin-bottom: 12px;
@@ -37,7 +37,7 @@
 .progress-section__form input {
   width: 100%;
   padding: 8px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid #d8cfc4;
   border-radius: 6px;
   font-size: 13px;
   margin-bottom: 8px;
@@ -58,18 +58,18 @@
 }
 
 .progress-section__btn--cancel {
-  background: #f1f5f9;
-  color: #64748b;
+  background: #e8dfd5;
+  color: #4a5568;
 }
 
 .progress-section__btn--save {
-  background: #8b5cf6;
+  background: #015185;
   color: #fff;
 }
 
 .progress-section__empty {
   text-align: center;
-  color: #94a3b8;
+  color: #718096;
   font-size: 13px;
   padding: 20px 0;
 }
@@ -86,7 +86,7 @@
   top: 0;
   bottom: 0;
   width: 2px;
-  background: #e2e8f0;
+  background: #d8cfc4;
 }
 
 .progress-section__timeline-item {
@@ -105,7 +105,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: #6366f1;
+  background: #102a6b;
   border: 2px solid #fff;
   box-shadow: 0 0 0 2px currentColor;
 }
@@ -121,15 +121,15 @@
 
 .progress-section__timeline-date {
   font-size: 11px;
-  color: #94a3b8;
+  color: #718096;
   margin-top: 2px;
 }
 
 .progress-section__timeline-note {
   font-size: 12px;
-  color: #64748b;
+  color: #4a5568;
   margin-top: 4px;
   padding: 6px 8px;
-  background: #f8fafc;
+  background: #fcf6f0;
   border-radius: 4px;
 }

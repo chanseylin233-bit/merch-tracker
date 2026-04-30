@@ -198,7 +198,7 @@ export function RecordsPage() {
                 <button
                   key={s}
                   className={`records__modal-status ${statusToSet === s ? 'active' : ''}`}
-                  style={{ borderColor: STATUS_COLORS[s] || '#94a3b8' }}
+                  style={{ borderColor: STATUS_COLORS[s] || '#718096' }}
                   onClick={() => setStatusToSet(s)}
                 >
                   {s}
@@ -208,7 +208,7 @@ export function RecordsPage() {
                 <button
                   key={s}
                   className={`records__modal-status ${statusToSet === s ? 'active' : ''}`}
-                  style={{ borderColor: STATUS_COLORS[s] || '#94a3b8' }}
+                  style={{ borderColor: STATUS_COLORS[s] || '#718096' }}
                   onClick={() => setStatusToSet(s)}
                 >
                   {s}
