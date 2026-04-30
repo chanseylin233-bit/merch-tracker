@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { useApp } from '../context/AppContext'
-import { DEFAULT_PRODUCT_TYPES, type Theme } from '../types'
+import { DEFAULT_PRODUCT_TYPES } from '../types'
 import './Settings.css'
 
 export function SettingsPage() {

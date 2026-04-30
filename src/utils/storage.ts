@@ -6,7 +6,7 @@ const STORAGE_QUOTA = 4 * 1024 * 1024 // 4MB
 export function loadState(): AppState {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
-    if (!raw) return { orders: [], customProductTypes: [] }
+    if (!raw) return { orders: [], customProductTypes: [], theme: 'warm-pink' as const }
     const parsed = JSON.parse(raw) as AppState
     return {
       orders: Array.isArray(parsed.orders) ? parsed.orders : [],
@@ -15,7 +15,7 @@ export function loadState(): AppState {
       theme: (parsed.theme === 'clean-purple' ? 'clean-purple' : parsed.theme === 'journal' ? 'journal' : 'warm-pink'),
     }
   } catch {
-    return { orders: [], customProductTypes: [] }
+    return { orders: [], customProductTypes: [], theme: 'warm-pink' as const }
   }
 }
 
