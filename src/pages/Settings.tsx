@@ -114,7 +114,7 @@ export function SettingsPage() {
       {/* 主题切换 */}
       <div className="settings__card">
         <div className="settings__card-header">
-          <span className="settings__card-icon settings__card-icon--purple"><Palette size={16} /></span>
+          <span className="settings__card-icon settings__card-icon--purple"><span className="icon-badge icon-badge--sm"><Palette size={15} /></span></span>
           <span className="settings__card-title">主题风格</span>
         </div>
         <div className="settings__theme-switcher">
@@ -148,7 +148,7 @@ export function SettingsPage() {
       {/* 数据统计 */}
       <div className="settings__card">
         <div className="settings__card-header">
-          <span className="settings__card-icon settings__card-icon--pink"><BarChart3 size={16} /></span>
+          <span className="settings__card-icon settings__card-icon--pink"><span className="icon-badge icon-badge--sm" style={{'--bg':'#fce4ec','--border':'#be185d','--stroke':'#be185d'} as React.CSSProperties}><BarChart3 size={15} /></span></span>
           <span className="settings__card-title">数据统计</span>
         </div>
         <div className="settings__stat">
@@ -164,7 +164,7 @@ export function SettingsPage() {
       {/* 制品类型管理 */}
       <div className="settings__card">
         <div className="settings__card-header">
-          <span className="settings__card-icon settings__card-icon--red"><Palette size={16} /></span>
+          <span className="settings__card-icon settings__card-icon--red"><span className="icon-badge icon-badge--sm"><Palette size={15} /></span></span>
           <span className="settings__card-title">制品类型</span>
         </div>
         <div className="settings__types">
@@ -193,7 +193,7 @@ export function SettingsPage() {
       {/* 数据备份 */}
       <div className="settings__card">
         <div className="settings__card-header">
-          <span className="settings__card-icon settings__card-icon--blue"><Cloud size={16} /></span>
+          <span className="settings__card-icon settings__card-icon--blue"><span className="icon-badge icon-badge--sm" style={{'--bg':'#e0f2fe','--border':'#0284c7','--stroke':'#0284c7'} as React.CSSProperties}><Cloud size={15} /></span></span>
           <span className="settings__card-title">数据备份</span>
         </div>
         <div className="settings__actions">
@@ -264,7 +264,7 @@ export function SettingsPage() {
       {/* 危险操作 */}
       <div className="settings__card settings__card--danger">
         <div className="settings__card-header">
-          <span className="settings__card-icon settings__card-icon--warn"><AlertTriangle size={16} /></span>
+          <span className="settings__card-icon settings__card-icon--warn"><span className="icon-badge icon-badge--sm" style={{'--bg':'#fef3c7','--border':'#d97706','--stroke':'#d97706'} as React.CSSProperties}><AlertTriangle size={13} /></span></span>
           <span className="settings__card-title">危险操作</span>
         </div>
         <button className="settings__btn settings__btn--danger" onClick={handleClearAll}>
@@ -275,7 +275,7 @@ export function SettingsPage() {
       {/* 关于 */}
       <div className="settings__card">
         <div className="settings__card-header">
-          <span className="settings__card-icon settings__card-icon--purple"><Info size={16} /></span>
+          <span className="settings__card-icon settings__card-icon--purple"><span className="icon-badge icon-badge--sm"><Info size={15} /></span></span>
           <span className="settings__card-title">关于</span>
         </div>
         <p className="settings__about">

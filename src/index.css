@@ -53,6 +53,68 @@ body {
 }
 
 /* ══════════════════════════════════════
+   便签纸图标徽章样式（方案 B）
+   ══════════════════════════════════════ */
+.icon-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 13px;
+  background: #fce4ec;
+  border: 2px solid #be185d;
+  flex-shrink: 0;
+}
+.icon-badge svg {
+  width: 20px;
+  height: 20px;
+  stroke: #be185d;
+  stroke-width: 2;
+}
+
+/* 紫色变体 */
+.icon-badge--purple {
+  background: #ede7f6;
+  border-color: #6b21a8;
+}
+.icon-badge--purple svg {
+  stroke: #6b21a8;
+}
+
+/* 蓝色变体（参考 iconfont 原版） */
+.icon-badge--blue {
+  background: #cae0ff;
+  border-color: #1a5f8e;
+}
+.icon-badge--blue svg {
+  stroke: #1a5f8e;
+}
+
+/* 小尺寸 */
+.icon-badge--sm {
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  border-width: 1.8px;
+}
+.icon-badge--sm svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* 大尺寸 */
+.icon-badge--lg {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+}
+.icon-badge--lg svg {
+  width: 26px;
+  height: 26px;
+}
+
+/* ══════════════════════════════════════
    关键帧动画
    ══════════════════════════════════════ */
 @keyframes fadeSlideUp {

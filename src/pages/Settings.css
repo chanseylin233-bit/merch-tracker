@@ -33,19 +33,18 @@
   margin-bottom: 16px;
 }
 .settings__card-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 10px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: 16px;
 }
-.settings__card-icon--pink { background: linear-gradient(135deg, #ffe4e6, #fecdd3); }
-.settings__card-icon--red { background: linear-gradient(135deg, #fff1f2, #ffe4e8); }
-.settings__card-icon--blue { background: linear-gradient(135deg, #e0f2fe, #bae6fd); }
-.settings__card-icon--warn { background: linear-gradient(135deg, #fef3c7, #fde68a); }
-.settings__card-icon--purple { background: linear-gradient(135deg, #ede9fe, #ddd6fe); }
+.settings__card-icon .icon-badge {
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+}
+.settings__card-icon .icon-badge svg {
+  width: 15px;
+  height: 15px;
+}
 
 .settings__card-title {
   font-size: 15px;

@@ -33,7 +33,9 @@ export function HomePage() {
       {/* 标题区 */}
       <div className="home__hero">
         <div className="home__greeting">
-          <ClipboardList size={20} className="home__hero-icon" />
+          <span className="icon-badge icon-badge--purple">
+            <ClipboardList size={20} />
+          </span>
           苏茜周边拼团账本
           <Sparkles size={18} className="home__hero-icon" />
         </div>
@@ -43,21 +45,23 @@ export function HomePage() {
       {/* 三张统计卡片 */}
       <div className="home__overview stagger-container">
         <div className="home__stat home__stat--amber stagger-item">
-          <div className="home__stat-icon">
-            <ClipboardList size={18} />
-          </div>
+          <span className="icon-badge icon-badge--sm home__stat-icon">
+            <ClipboardList size={15} />
+          </span>
           <div className="home__stat-value">{activeOrders.length}</div>
           <div className="home__stat-label">未完成</div>
         </div>
         <div className="home__stat home__stat--pink stagger-item">
-          <div className="home__stat-icon">
-            <CreditCard size={18} />
-          </div>
+          <span className="icon-badge icon-badge--sm home__stat-icon">
+            <CreditCard size={15} />
+          </span>
           <div className="home__stat-value">{refundCount}</div>
           <div className="home__stat-label">待退款</div>
         </div>
         <div className="home__stat home__stat--blue stagger-item">
-          <div className="home__stat-icon">¥</div>
+          <span className="icon-badge icon-badge--sm home__stat-icon home__stat-icon--money">
+            <CreditCard size={15} />
+          </span>
           <div className="home__stat-value home__stat--money">¥{formatMoney(yearPaid)}</div>
           <div className="home__stat-label">今年已付</div>
         </div>
@@ -67,7 +71,9 @@ export function HomePage() {
       {todoGroups.length === 0 && incompleteOrders.length === 0 && (
         <div className="home__empty-wrap">
           <div className="home__empty-icon">
-            <PartyPopper size={48} strokeWidth={1.5} className="home__empty-svg" />
+            <span className="icon-badge icon-badge--lg">
+              <PartyPopper size={26} strokeWidth={1.5} />
+            </span>
           </div>
           <div className="home__empty-text">暂无待办，一切顺利！</div>
         </div>

@@ -12,7 +12,8 @@
   padding: 10px 18px;
   background: linear-gradient(135deg, #ffe4e6, #fecdd3);
   display: flex;
-  justify-content: space-between;
+  gap: 8px;
+  justify-content: flex-start;
   align-items: center;
   font-size: 12px;
   color: #be123c;
@@ -85,7 +86,7 @@
 .records__search::placeholder { color: var(--text-hint); }
 
 .records__filter-btn {
-  padding: 11px 16px;
+  padding: 8px 14px;
   border-radius: 22px;
   border: 1.5px solid var(--border);
   background: rgba(255,255,255,.9);
@@ -96,10 +97,22 @@
   transition: all .2s;
   font-weight: 500;
   color: var(--primary-mid);
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 .records__filter-btn:active {
   border-color: var(--primary);
   background: #fff;
+}
+.records__filter-btn .icon-badge--sm {
+  width: 26px;
+  height: 26px;
+  border-radius: 9px;
+}
+.records__filter-btn .icon-badge--sm svg {
+  width: 13px;
+  height: 13px;
 }
 
 .records__active-filters {
@@ -136,10 +149,10 @@
   padding: 70px 0 50px;
   position: relative;
 }
-.records__empty-emoji {
-  font-size: 56px;
+.records__empty-icon {
   margin-bottom: 14px;
-  filter: drop-shadow(0 2px 8px rgba(167,139,250,.15));
+  display: flex;
+  justify-content: center;
 }
 .records__empty-text {
   color: var(--text-muted);

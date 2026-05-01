@@ -97,7 +97,9 @@ export function RecordsPage() {
       <div className="records__header">
         <div className="records__title-row">
           <div className="records__title">
-            <ClipboardList size={18} className="records__title-icon" />
+            <span className="icon-badge icon-badge--purple icon-badge--sm">
+              <ClipboardList size={15} />
+            </span>
             拼团记录
             <Sparkles size={16} className="records__title-sparkle" />
           </div>
@@ -120,7 +122,9 @@ export function RecordsPage() {
             onChange={e => setSearch(e.target.value)} 
           />
           <button className="records__filter-btn" onClick={() => setFilterOpen(true)}>
-            <SlidersHorizontal size={14} /> 筛选{activeFilterCount > 0 ? ` (${activeFilterCount})` : ''}
+            <span className="icon-badge icon-badge--sm" style={{'--bg':'#ede7f6','--border':'#6b21a8','--stroke':'#6b21a8'} as React.CSSProperties}>
+              <SlidersHorizontal size={13} />
+            </span> 筛选{activeFilterCount > 0 ? ` (${activeFilterCount})` : ''}
           </button>
         </div>
         
@@ -140,7 +144,9 @@ export function RecordsPage() {
         {displayList.length === 0 ? (
           <div className="records__empty-wrap">
           <div className="records__empty-icon">
-            <ClipboardList size={48} strokeWidth={1.2} className="records__empty-svg" />
+            <span className="icon-badge icon-badge--purple icon-badge--lg">
+              <ClipboardList size={26} strokeWidth={1.5} />
+            </span>
           </div>
             <div className="records__empty-text">暂无记录</div>
           </div>
