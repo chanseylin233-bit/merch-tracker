@@ -4,8 +4,17 @@
   box-sizing: border-box;
 }
 
-/* ── 默认变量（warm-pink 主题） ── */
+/* ══════════════════════════════════════
+   字体变量（跨主题统一）
+   ══════════════════════════════════════ */
 :root {
+  --font-heading: 'Nunito', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  --font-body: 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+/* ── 默认变量（warm-pink 主题） ── */
+:root, body[data-theme='warm-pink'] {
+  --primary: #a78bfa;
   --primary: #a78bfa;
   --primary-soft: rgba(167,139,250,.1);
   --primary-mid: #8b5cf6;
@@ -27,7 +36,7 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: var(--font-body);
   background: var(--bg);
   color: var(--text);
   line-height: 1.5;
@@ -35,6 +44,71 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: transparent;
   transition: background .3s ease, color .3s ease;
+}
+
+/* 页面标题统一用 Nunito */
+.home__title, .records__title, .stats__title,
+.settings__title, .add__page-title, .detail__title {
+  font-family: var(--font-heading) !important;
+}
+
+/* ══════════════════════════════════════
+   关键帧动画
+   ══════════════════════════════════════ */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pageEnter {
+  from { opacity: 0; transform: scale(.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-4px); }
+}
+
+/* 页面进场动画 */
+.page-enter {
+  animation: pageEnter .35s cubic-bezier(.34,1.56,.64,1) both;
+}
+
+/* 列表项目 stagger 动画 */
+.stagger-item {
+  opacity: 0;
+  animation: fadeSlideUp .4s ease-out both;
+}
+.stagger-item:nth-child(1)  { animation-delay: 0ms; }
+.stagger-item:nth-child(2)  { animation-delay: 60ms; }
+.stagger-item:nth-child(3)  { animation-delay: 120ms; }
+.stagger-item:nth-child(4)  { animation-delay: 180ms; }
+.stagger-item:nth-child(5)  { animation-delay: 240ms; }
+.stagger-item:nth-child(n+6){ animation-delay: 300ms; }
+
+/* 滚动触发动画（JS 添加 .visible 类） */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.scroll-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 骨架屏加载态 */
+.skeleton {
+  background: linear-gradient(90deg, #f0e8ec 25%, #f8f4f6 50%, #f0e8ec 75%);
+  background-size: 400px 100%;
+  animation: shimmer 1.4s ease infinite;
+  border-radius: 10px;
 }
 
 #root {

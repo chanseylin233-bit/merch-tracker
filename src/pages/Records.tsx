@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { ClipboardList, SlidersHorizontal, Check, AlertTriangle, Sparkles } from 'lucide-react'
 import { useApp } from '../context/AppContext'
 import { OrderCard } from '../components/OrderCard'
 import { FilterDrawer } from '../components/FilterDrawer'
@@ -84,18 +85,22 @@ export function RecordsPage() {
   }
 
   return (
-    <div className="records">
+    <div className="records page-enter">
       {/* 容量警告 */}
       {showCapacityWarning && (
         <div className="records__capacity-warning">
-          <span>⚠️ 存储空间已用 {Math.round(storage.percent * 100)}%</span>
+          <span><AlertTriangle size={12} /> 存储空间已用 {Math.round(storage.percent * 100)}%</span>
           <button onClick={doCleanup}>清理旧数据</button>
         </div>
       )}
 
       <div className="records__header">
         <div className="records__title-row">
-          <div className="records__title">📋 拼团记录 ✨</div>
+          <div className="records__title">
+            <ClipboardList size={18} className="records__title-icon" />
+            拼团记录
+            <Sparkles size={16} className="records__title-sparkle" />
+          </div>
           <button 
             className={`records__select-btn ${selectMode ? 'active' : ''}`}
             onClick={() => {
@@ -103,19 +108,19 @@ export function RecordsPage() {
               setSelectedIds(new Set())
             }}
           >
-            ✓ 多选
+            <Check size={14} /> 多选
           </button>
         </div>
         
         <div className="records__toolbar">
           <input 
             className="records__search" 
-            placeholder="🔍 搜索…" 
+            placeholder="搜索订单…" 
             value={search} 
             onChange={e => setSearch(e.target.value)} 
           />
           <button className="records__filter-btn" onClick={() => setFilterOpen(true)}>
-            🔽 筛选{activeFilterCount > 0 ? ` (${activeFilterCount})` : ''}
+            <SlidersHorizontal size={14} /> 筛选{activeFilterCount > 0 ? ` (${activeFilterCount})` : ''}
           </button>
         </div>
         
@@ -134,7 +139,9 @@ export function RecordsPage() {
       <div className="records__list">
         {displayList.length === 0 ? (
           <div className="records__empty-wrap">
-            <div className="records__empty-emoji">📋</div>
+          <div className="records__empty-icon">
+            <ClipboardList size={48} strokeWidth={1.2} className="records__empty-svg" />
+          </div>
             <div className="records__empty-text">暂无记录</div>
           </div>
         ) : (

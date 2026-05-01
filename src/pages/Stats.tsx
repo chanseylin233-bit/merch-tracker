@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
+import { ShoppingBag, CreditCard, Clock, RefreshCw, Package, Moon } from 'lucide-react'
 import { useYearStats, useMaxMonthlyPaid, useMaxTypePaid, MACARON } from '../hooks/useStats'
 import { formatMoney } from '../utils/format'
 import { useApp } from '../context/AppContext'
@@ -77,7 +78,7 @@ export function StatsPage() {
   }, [stats.monthlyTrend, maxMonthly])
 
   return (
-    <div className="stats">
+    <div className="stats page-enter">
       <div className="stats__header">
         <div className="stats__title">✨ 年度统计</div>
         <div className="stats__year-switch">
@@ -98,22 +99,22 @@ export function StatsPage() {
         <div className="stats__card-title">📋 年度概览</div>
         <div className="stats__grid4">
           <div className="stats__metric">
-            <div className="stats__metric-icon stats__metric-icon--blue">🛒</div>
+            <div className="stats__metric-icon stats__metric-icon--blue"><ShoppingBag size={16} /></div>
             <div className="stats__metric-value">{stats.year.orders}</div>
             <div className="stats__metric-label">订单</div>
           </div>
           <div className="stats__metric">
-            <div className="stats__metric-icon stats__metric-icon--pink">💳</div>
+            <div className="stats__metric-icon stats__metric-icon--pink"><CreditCard size={16} /></div>
             <div className="stats__metric-value stats__metric--red">¥{formatMoney(stats.year.paid)}</div>
             <div className="stats__metric-label">已付</div>
           </div>
           <div className="stats__metric">
-            <div className="stats__metric-icon stats__metric-icon--amber">⏰</div>
+            <div className="stats__metric-icon stats__metric-icon--amber"><Clock size={16} /></div>
             <div className="stats__metric-value stats__metric--orange">¥{formatMoney(stats.year.pending)}</div>
             <div className="stats__metric-label">待付</div>
           </div>
           <div className="stats__metric">
-            <div className="stats__metric-icon stats__metric-icon--green">↻</div>
+            <div className="stats__metric-icon stats__metric-icon--green"><RefreshCw size={16} /></div>
             <div className="stats__metric-value stats__metric--green">¥{formatMoney(stats.year.refunded)}</div>
             <div className="stats__metric-label">已退</div>
           </div>
@@ -121,8 +122,8 @@ export function StatsPage() {
 
         {/* 实际花费横条 */}
         <div className="stats__net-cost-bar">
-          <span className="stats__net-cost-label">🐷 实际花费</span>
-          <span className="stats__net-cost-num">¥{formatMoney(stats.year.netCost)} ✨</span>
+          <span className="stats__net-cost-label">实际花费</span>
+          <span className="stats__net-cost-num">¥{formatMoney(stats.year.netCost)}</span>
         </div>
 
         {/* 占比条 */}
@@ -151,17 +152,17 @@ export function StatsPage() {
       {/* 三张小卡片 */}
       <div className="stats__row2">
         <div className="stats__card stats__card--compact stats__card--blue">
-          <div className="stats__metric-icon-sm">📋</div>
+          <div className="stats__metric-icon-sm"><Package size={16} /></div>
           <div className="stats__metric-value">{stats.month.orders}</div>
           <div className="stats__metric-label">本月订单</div>
         </div>
         <div className="stats__card stats__card--compact stats__card--pink">
-          <div className="stats__metric-icon-sm">💳</div>
+          <div className="stats__metric-icon-sm"><CreditCard size={16} /></div>
           <div className="stats__metric-value stats__metric--red">¥{formatMoney(stats.month.paid)}</div>
           <div className="stats__metric-label">本月已付</div>
         </div>
         <div className="stats__card stats__card--compact stats__card--purple">
-          <div className="stats__metric-icon-sm">🪐</div>
+          <div className="stats__metric-icon-sm"><Moon size={16} /></div>
           <div className="stats__metric-value">{stats.active}</div>
           <div className="stats__metric-label">进行中</div>
         </div>

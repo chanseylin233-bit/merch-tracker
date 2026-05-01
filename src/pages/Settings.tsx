@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react'
+import { Palette, BarChart3, Cloud, FolderOpen, Trash2, AlertTriangle, Info } from 'lucide-react'
 import { useApp } from '../context/AppContext'
 import { DEFAULT_PRODUCT_TYPES } from '../types'
 import './Settings.css'
@@ -107,13 +108,13 @@ export function SettingsPage() {
   }
 
   return (
-    <div className="settings">
+    <div className="settings page-enter">
       <div className="settings__title">设置 ✨</div>
 
       {/* 主题切换 */}
       <div className="settings__card">
         <div className="settings__card-header">
-          <span className="settings__card-icon settings__card-icon--purple">🎨</span>
+          <span className="settings__card-icon settings__card-icon--purple"><Palette size={16} /></span>
           <span className="settings__card-title">主题风格</span>
         </div>
         <div className="settings__theme-switcher">
@@ -147,7 +148,7 @@ export function SettingsPage() {
       {/* 数据统计 */}
       <div className="settings__card">
         <div className="settings__card-header">
-          <span className="settings__card-icon settings__card-icon--pink">📊</span>
+          <span className="settings__card-icon settings__card-icon--pink"><BarChart3 size={16} /></span>
           <span className="settings__card-title">数据统计</span>
         </div>
         <div className="settings__stat">
@@ -163,7 +164,7 @@ export function SettingsPage() {
       {/* 制品类型管理 */}
       <div className="settings__card">
         <div className="settings__card-header">
-          <span className="settings__card-icon settings__card-icon--red">🎨</span>
+          <span className="settings__card-icon settings__card-icon--red"><Palette size={16} /></span>
           <span className="settings__card-title">制品类型</span>
         </div>
         <div className="settings__types">
@@ -192,7 +193,7 @@ export function SettingsPage() {
       {/* 数据备份 */}
       <div className="settings__card">
         <div className="settings__card-header">
-          <span className="settings__card-icon settings__card-icon--blue">☁️</span>
+          <span className="settings__card-icon settings__card-icon--blue"><Cloud size={16} /></span>
           <span className="settings__card-title">数据备份</span>
         </div>
         <div className="settings__actions">
@@ -213,7 +214,7 @@ export function SettingsPage() {
               onDrop={handleDrop}
               onClick={() => fileInputRef.current?.click()}
             >
-              <div className="settings__dropzone-icon">📂</div>
+              <div className="settings__dropzone-icon"><FolderOpen size={32} /></div>
               <div className="settings__dropzone-text">
                 {dragOver ? '松开导入文件' : '点击选择或拖拽 .json 文件到此处'}
               </div>
@@ -263,18 +264,18 @@ export function SettingsPage() {
       {/* 危险操作 */}
       <div className="settings__card settings__card--danger">
         <div className="settings__card-header">
-          <span className="settings__card-icon settings__card-icon--warn">⚠️</span>
+          <span className="settings__card-icon settings__card-icon--warn"><AlertTriangle size={16} /></span>
           <span className="settings__card-title">危险操作</span>
         </div>
         <button className="settings__btn settings__btn--danger" onClick={handleClearAll}>
-          🗑 清空所有数据
+          <Trash2 size={14} /> 清空所有数据
         </button>
       </div>
 
       {/* 关于 */}
       <div className="settings__card">
         <div className="settings__card-header">
-          <span className="settings__card-icon settings__card-icon--purple">ℹ️</span>
+          <span className="settings__card-icon settings__card-icon--purple"><Info size={16} /></span>
           <span className="settings__card-title">关于</span>
         </div>
         <p className="settings__about">
