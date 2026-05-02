@@ -7,6 +7,7 @@ import { DetailPage } from './pages/Detail'
 import { StatsPage } from './pages/Stats'
 import { SettingsPage } from './pages/Settings'
 import { TabBar } from './components/TabBar'
+import { ErrorBoundary } from './components/ErrorBoundary'
 import './App.css'
 
 function App() {
@@ -14,15 +15,17 @@ function App() {
     <AppProvider>
       <BrowserRouter>
         <div className="app">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/records" element={<RecordsPage />} />
-            <Route path="/add" element={<AddEditPage />} />
-            <Route path="/edit/:id" element={<AddEditPage />} />
-            <Route path="/detail/:id" element={<DetailPage />} />
-            <Route path="/stats" element={<StatsPage />} />
-            <Route path="/settings" element={<SettingsPage />} />
-          </Routes>
+          <ErrorBoundary>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/records" element={<RecordsPage />} />
+              <Route path="/add" element={<AddEditPage />} />
+              <Route path="/edit/:id" element={<AddEditPage />} />
+              <Route path="/detail/:id" element={<DetailPage />} />
+              <Route path="/stats" element={<StatsPage />} />
+              <Route path="/settings" element={<SettingsPage />} />
+            </Routes>
+          </ErrorBoundary>
           <TabBar />
         </div>
       </BrowserRouter>

@@ -19,19 +19,37 @@ export function useFilteredOrders(filters: FilterState) {
   )
 }
 
-/** 搜索订单 */
+/** 搜索订单（内部辅助函数） */
+function searchOrders(orders: Order[], keyword: string): Order[] {
+  if (!keyword) return orders
+  const kw = keyword.toLowerCase()
+  return orders.filter(o =>
+    o.title.toLowerCase().includes(kw) ||
+    o.leader?.toLowerCase().includes(kw) ||
+    o.groupName?.toLowerCase().includes(kw) ||
+    o.characterTags.some(t => t.toLowerCase().includes(kw))
+  )
+}
+
+/** 搜索订单（独立使用） */
 export function useSearchOrders(keyword: string) {
   const { state } = useApp()
+  return useMemo(
+    () => searchOrders(state.orders, keyword),
+    [state.orders, keyword]
+  )
+}
+
+/** 筛选 + 搜索组合（支持叠加） */
+export function useFilteredAndSearchOrders(filters: FilterState, keyword: string) {
+  const { state } = useApp()
   return useMemo(() => {
-    if (!keyword) return state.orders
-    const kw = keyword.toLowerCase()
-    return state.orders.filter(o =>
-      o.title.toLowerCase().includes(kw) ||
-      o.leader?.toLowerCase().includes(kw) ||
-      o.groupName?.toLowerCase().includes(kw) ||
-      o.characterTags.some(t => t.toLowerCase().includes(kw))
-    )
-  }, [state.orders, keyword])
+    // 先应用筛选条件
+    let result = filterOrders(state.orders, filters)
+    // 再应用搜索关键词
+    result = searchOrders(result, keyword)
+    return result
+  }, [state.orders, filters, keyword])
 }
 
 /** 获取待办分组 */

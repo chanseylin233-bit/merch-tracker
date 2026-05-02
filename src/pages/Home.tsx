@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ClipboardList, Sparkles, CreditCard, PartyPopper } from 'lucide-react'
 import { useApp } from '../context/AppContext'
@@ -15,18 +16,27 @@ export function HomePage() {
   const todoGroups = useTodoGroups()
   const activeOrders = useActiveOrders()
 
-  // 未完成订单（排除已终止状态）
-  const incompleteOrders = activeOrders
-    .filter(o => !isTerminated(o.status))
-    .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
+  // 未完成订单（排除已终止状态）- useMemo 缓存
+  const incompleteOrders = useMemo(() => {
+    return activeOrders
+      .filter(o => !isTerminated(o.status))
+      .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt))
+  }, [activeOrders])
 
-  // 统计
-  const yearOrders = state.orders.filter(o => o.createdAt.startsWith(String(year)))
-  const yearPaid = yearOrders.reduce((s, o) => s + o.paidAmount, 0)
+  // 年度统计 - useMemo 缓存
+  const yearPaid = useMemo(() => {
+    const yearPrefix = String(year)
+    return state.orders
+      .filter(o => o.createdAt.startsWith(yearPrefix))
+      .reduce((s, o) => s + o.paidAmount, 0)
+  }, [state.orders, year])
 
-  const refundCount = activeOrders.filter(o =>
-    o.status === '流团待退款' || o.status === '部分退款'
-  ).length
+  // 退款统计 - useMemo 缓存
+  const refundCount = useMemo(() => {
+    return activeOrders.filter(o =>
+      o.status === '流团待退款' || o.status === '部分退款'
+    ).length
+  }, [activeOrders])
 
   return (
     <div className="home page-enter">

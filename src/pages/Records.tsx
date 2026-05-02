@@ -4,7 +4,7 @@ import { ClipboardList, SlidersHorizontal, Check, AlertTriangle, Sparkles } from
 import { useApp } from '../context/AppContext'
 import { OrderCard } from '../components/OrderCard'
 import { FilterDrawer } from '../components/FilterDrawer'
-import { useFilteredOrders, useSearchOrders, useCharacterTags } from '../hooks/useOrders'
+import { useFilteredAndSearchOrders, useCharacterTags } from '../hooks/useOrders'
 
 import { cleanupOldData, type FilterState } from '../utils/orders'
 import { getStorageUsage } from '../utils/storage'
@@ -32,10 +32,8 @@ export function RecordsPage() {
   const [batchStatusOpen, setBatchStatusOpen] = useState(false)
   const [statusToSet, setStatusToSet] = useState<OrderStatus | ''>('')
   
-  // 使用 hooks
-  const filteredByFilter = useFilteredOrders(filters)
-  const filtered = useSearchOrders(search)
-  const displayList = search ? filtered : filteredByFilter
+  // 使用组合 hook（筛选 + 搜索叠加）
+  const displayList = useFilteredAndSearchOrders(filters, search)
   const allCharTags = useCharacterTags()
   
   // 容量监控
