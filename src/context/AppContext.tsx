@@ -122,20 +122,23 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [historyLength, setHistoryLength] = React.useState(0)
   const [canRedoState, setCanRedoState] = React.useState(false)
   
-  // 包装 dispatch 以支持撤销
+  // 包装 dispatch 以支持撤销（用 ref 捕获 state 避免依赖变化）
+  const stateRef = useRef(state)
+  stateRef.current = state
+
   const dispatch = useCallback((action: any) => {
     const actionType = action?.type as string
-    
+
     // 如果是可撤销操作，先保存当前状态
     if (UNDOABLE_ACTIONS.has(actionType)) {
-      pastRef.current = [...pastRef.current, state].slice(-MAX_UNDO)
+      pastRef.current = [...pastRef.current, stateRef.current].slice(-MAX_UNDO)
       futureRef.current = []  // 新操作清空重做栈
       setHistoryLength(pastRef.current.length + 1)
       setCanRedoState(false)
     }
-    
+
     dispatchBase(action)
-  }, [state])
+  }, [])
   
   // 撤销
   const undo = useCallback(() => {

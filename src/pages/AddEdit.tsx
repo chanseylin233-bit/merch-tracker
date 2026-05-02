@@ -98,6 +98,9 @@ export function AddEditPage() {
   const isEdit = Boolean(id)
   const existing = isEdit ? state.orders.find(o => o.id === id) : null
 
+  // 重置表单为默认值
+  const resetForm = useCallback(() => setForm(DEFAULT_FORM), [])
+
   const [form, setForm] = useState<typeof DEFAULT_FORM>(() =>
     existing
       ? { ...DEFAULT_FORM, ...existing, customNextAction: existing.customNextAction }
@@ -156,14 +159,35 @@ export function AddEditPage() {
     try { sessionStorage.removeItem(DRAFT_KEY) } catch { /* ignore */ }
   }, [])
 
-  // ── 未保存提醒 ────────────────────────────
-  const savedRef = useRef(JSON.stringify(form))
+  // ── 未保存提醒（初始化后立即记录基准值） ──
+  const savedRef = useRef('__init__')
+
+  // 组件挂载后（form 已初始化）记录基准值
+  useEffect(() => {
+    const baseline = form.title + '|' + form.productType + '|' + form.quantity + '|' +
+      form.groupName + '|' + form.leader + '|' + form.batch + '|' +
+      form.paidAmount + '|' + form.pendingAmount + '|' + form.status + '|' + form.note +
+      '|' + form.characterTags.join(',')
+    savedRef.current = baseline
+    setHasChanged(false)
+  }, [])  // eslint-disable-line react-hooks/exhaustive-deps
+  // 依赖空数组：只在 mount 时执行一次，之后由下方的 useEffect 接管变化检测
+
+  // ── 未保存提醒（字段级比较，避免 JSON.stringify 每次渲染开销） ──
+  // 追踪关键字段：只要任意一个变化就认为有改动
   const [hasChanged, setHasChanged] = useState(false)
 
   useEffect(() => {
-    const current = JSON.stringify(form)
-    setHasChanged(current !== savedRef.current)
-  }, [form])
+    const current = form.title + '|' + form.productType + '|' + form.quantity + '|' +
+      form.groupName + '|' + form.leader + '|' + form.batch + '|' +
+      form.paidAmount + '|' + form.pendingAmount + '|' + form.status + '|' + form.note +
+      '|' + form.characterTags.join(',')
+    // 仅在非初始化时检测变化（避免 mount 时误报）
+    if (savedRef.current !== '__init__') {
+      setHasChanged(current !== savedRef.current)
+    }
+  }, [form.title, form.productType, form.quantity, form.groupName, form.leader, form.batch,
+       form.paidAmount, form.pendingAmount, form.status, form.note, form.characterTags])
 
   const handleNavigateBack = useCallback(() => {
     if (hasChanged) {
@@ -231,9 +255,13 @@ export function AddEditPage() {
     } else {
       dispatch({ type: 'ADD_ORDER', order })
     }
-    savedRef.current = JSON.stringify(form)
+    savedRef.current = form.title + '|' + form.productType + '|' + form.quantity + '|' +
+      form.groupName + '|' + form.leader + '|' + form.batch + '|' +
+      form.paidAmount + '|' + form.pendingAmount + '|' + form.status + '|' + form.note +
+      '|' + form.characterTags.join(',')
     setHasChanged(false)
     clearDraft()
+    if (!isEdit) resetForm()  // 新增后重置表单
     navigate(`/detail/${order.id}`)
   }
 

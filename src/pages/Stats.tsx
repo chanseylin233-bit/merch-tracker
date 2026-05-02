@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { ShoppingBag, CreditCard, Clock, RefreshCw, Package, Moon } from 'lucide-react'
-import { useYearStats, useMaxMonthlyPaid, useMaxTypePaid, MACARON } from '../hooks/useStats'
+import { useYearStats, MACARON } from '../hooks/useStats'
 import { formatMoney } from '../utils/format'
 import { useApp } from '../context/AppContext'
 import { STATUS_COLORS } from '../types'
@@ -14,8 +14,8 @@ export function StatsPage() {
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 })
   
   const stats = useYearStats(viewYear)
-  const maxMonthly = useMaxMonthlyPaid(viewYear)
-  const maxTypePaid = useMaxTypePaid(viewYear)
+  const maxMonthly = Math.max(...stats.monthlyTrend.map(m => m.paid), 1)
+  const maxTypePaid = stats.byType.length > 0 ? stats.byType[0][1].paid : 1
 
   const { state } = useApp()
 

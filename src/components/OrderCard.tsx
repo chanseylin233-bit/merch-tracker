@@ -1,5 +1,6 @@
 import type { Order } from '../types'
 import { STATUS_COLORS, NEXT_ACTION_MAP } from '../types'
+import { isCompleted } from '../utils/orders'
 import './OrderCard.css'
 
 interface Props {
@@ -9,7 +10,7 @@ interface Props {
 
 export function OrderCard({ order, onClick }: Props) {
   const nextAction = order.customNextAction ?? NEXT_ACTION_MAP[order.status]
-  const isDone = order.status === '已收货已完成' || order.status === '已退款' || order.status === '已放弃/已转单' || order.status === '未拼成'
+  const isDone = isCompleted(order.status)
   const finalCost = order.paidAmount - order.refundedAmount
 
   return (

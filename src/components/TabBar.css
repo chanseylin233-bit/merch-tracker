@@ -31,6 +31,7 @@
 .tab-bar__item.active {
   color: var(--primary-mid);
   background: var(--primary-soft);
+  transition: all .3s cubic-bezier(.34,1.56,.64,1);
 }
 .tab-bar__icon { font-size: 22px; line-height: 1; }
 .tab-bar__label {

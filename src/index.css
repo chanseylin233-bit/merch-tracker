@@ -15,7 +15,6 @@
 /* ── 默认变量（warm-pink 主题） ── */
 :root, body[data-theme='warm-pink'] {
   --primary: #a78bfa;
-  --primary: #a78bfa;
   --primary-soft: rgba(167,139,250,.1);
   --primary-mid: #8b5cf6;
   --pink: #f5a0b0;

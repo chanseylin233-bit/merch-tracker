@@ -8,7 +8,7 @@ import { useFilteredAndSearchOrders, useCharacterTags } from '../hooks/useOrders
 
 import { cleanupOldData, type FilterState } from '../utils/orders'
 import { getStorageUsage } from '../utils/storage'
-import { STATUS_COLORS, TERMINATED_STATUSES, type OrderStatus } from '../types'
+import { STATUS_COLORS, STATUS_STEPS, TERMINATED_STATUSES, type OrderStatus } from '../types'
 import './Records.css'
 
 export function RecordsPage() {
@@ -26,11 +26,14 @@ export function RecordsPage() {
   })
   const [search, setSearch] = useState('')
   
+  // 批量改状态弹窗
+  const [batchStatusTab, setBatchStatusTab] = useState<'flow' | 'terminated'>('flow')
+  const [batchStatusOpen, setBatchStatusOpen] = useState(false)
+  const [statusToSet, setStatusToSet] = useState<OrderStatus | ''>('')
+
   // 批量操作状态
   const [selectMode, setSelectMode] = useState(false)
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
-  const [batchStatusOpen, setBatchStatusOpen] = useState(false)
-  const [statusToSet, setStatusToSet] = useState<OrderStatus | ''>('')
   
   // 使用组合 hook（筛选 + 搜索叠加）
   const displayList = useFilteredAndSearchOrders(filters, search)
@@ -202,39 +205,50 @@ export function RecordsPage() {
         <div className="records__modal-overlay" onClick={() => setBatchStatusOpen(false)}>
           <div className="records__modal" onClick={e => e.stopPropagation()}>
             <div className="records__modal-title">选择新状态</div>
+
+            {/* Tab 切换 */}
+            <div className="records__modal-tabs">
+              <button
+                className={`records__modal-tab ${batchStatusTab === 'flow' ? 'active' : ''}`}
+                onClick={() => setBatchStatusTab('flow')}
+              >流转中</button>
+              <button
+                className={`records__modal-tab ${batchStatusTab === 'terminated' ? 'active' : ''}`}
+                onClick={() => setBatchStatusTab('terminated')}
+              >已终止</button>
+            </div>
+
             <div className="records__modal-statuses">
-              {([
-                '观望中', '已报名/已占位', '拼团中', '拼团成功待付款', 
-                '已付定金待尾款', '待补尾款', '已付款待发货', 
-                '已到团长处待排发', '已申请排发待发货', 
-                '已发货待收货', '已收货已完成'
-              ] as OrderStatus[]).map(s => (
-                <button
-                  key={s}
-                  className={`records__modal-status ${statusToSet === s ? 'active' : ''}`}
-                  style={{ borderColor: STATUS_COLORS[s] || '#718096' }}
-                  onClick={() => setStatusToSet(s)}
-                >
-                  {s}
-                </button>
-              ))}
-              {TERMINATED_STATUSES.map(s => (
-                <button
-                  key={s}
-                  className={`records__modal-status ${statusToSet === s ? 'active' : ''}`}
-                  style={{ borderColor: STATUS_COLORS[s] || '#718096' }}
-                  onClick={() => setStatusToSet(s)}
-                >
-                  {s}
-                </button>
-              ))}
+              {batchStatusTab === 'flow' ? (
+                STATUS_STEPS.map(s => (
+                  <button
+                    key={s}
+                    className={`records__modal-status ${statusToSet === s ? 'active' : ''}`}
+                    style={{ borderColor: STATUS_COLORS[s] || '#718096' }}
+                    onClick={() => setStatusToSet(s)}
+                  >
+                    {s}
+                  </button>
+                ))
+              ) : (
+                TERMINATED_STATUSES.map(s => (
+                  <button
+                    key={s}
+                    className={`records__modal-status ${statusToSet === s ? 'active' : ''}`}
+                    style={{ borderColor: STATUS_COLORS[s] || '#718096' }}
+                    onClick={() => setStatusToSet(s)}
+                  >
+                    {s}
+                  </button>
+                ))
+              )}
             </div>
             <div className="records__modal-actions">
               <button className="records__modal-cancel" onClick={() => setBatchStatusOpen(false)}>
                 取消
               </button>
-              <button 
-                className="records__modal-confirm" 
+              <button
+                className="records__modal-confirm"
                 disabled={!statusToSet}
                 onClick={doBatchSetStatus}
               >

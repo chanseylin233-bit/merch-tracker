@@ -90,6 +90,7 @@ export function HomePage() {
             </span>
           </div>
           <div className="home__empty-text">暂无待办，一切顺利！</div>
+          <div className="home__empty-sub">去记录一笔新周边吧 ✨</div>
         </div>
       )}
 
