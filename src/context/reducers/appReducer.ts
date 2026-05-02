@@ -17,6 +17,8 @@ type AppAction =
   | { type: 'ADD_PRODUCT_TYPE'; name: string }
   | { type: 'REMOVE_PRODUCT_TYPE'; name: string }
   | { type: 'SET_THEME'; theme: Theme }
+  | { type: 'MARK_BACKUP' }  // 标记已备份
+  | { type: 'DISMISS_BACKUP_REMINDER' }  // 暂时关闭提醒
 
 export function appReducer(state: AppState, action: AppAction): AppState {
   switch (action.type) {
@@ -48,6 +50,19 @@ export function appReducer(state: AppState, action: AppAction): AppState {
       return {
         ...state,
         theme: action.theme,
+      }
+      
+    case 'MARK_BACKUP':
+      return {
+        ...state,
+        lastBackupTime: new Date().toISOString(),
+        backupReminderDismissed: undefined,
+      }
+      
+    case 'DISMISS_BACKUP_REMINDER':
+      return {
+        ...state,
+        backupReminderDismissed: new Date().toISOString(),
       }
       
     default:

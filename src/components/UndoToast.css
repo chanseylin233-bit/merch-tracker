@@ -1,0 +1,71 @@
+/* ── 撤销重做浮动栏 ─────────────────────────── */
+.undo-toast {
+  position: fixed;
+  bottom: 80px;  /* 在 TabBar 上方 */
+  right: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: rgba(255, 255, 255, .95);
+  border-radius: 22px;
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, .1),
+    0 2px 6px rgba(0, 0, 0, .06);
+  border: 1px solid rgba(240, 224, 230, .5);
+  z-index: 100;
+  animation: fadeIn .2s ease-out;
+  backdrop-filter: blur(8px);
+}
+
+.undo-toast__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  background: var(--primary-soft);
+  border-radius: 50%;
+  color: var(--primary);
+  cursor: pointer;
+  transition: all .15s;
+}
+
+.undo-toast__btn:hover:not(:disabled) {
+  background: var(--primary);
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.undo-toast__btn:active:not(:disabled) {
+  transform: scale(.92);
+}
+
+.undo-toast__btn.disabled,
+.undo-toast__btn:disabled {
+  opacity: .4;
+  cursor: default;
+  background: rgba(148, 163, 184, .1);
+  color: #94a3b8;
+}
+
+.undo-toast__count {
+  min-width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 11px;
+  padding: 0 6px;
+}
+
+/* 日记主题适配 */
+body[data-journal] .undo-toast {
+  background: rgba(253, 248, 239, .95);
+  border-color: rgba(232, 220, 200, .5);
+}

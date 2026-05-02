@@ -1,0 +1,86 @@
+/* ── 备份提醒横幅 ─────────────────────────── */
+.backup-reminder {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  margin: 0 0 16px 0;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border-radius: 14px;
+  border: 1px solid rgba(245, 158, 11, .25);
+  box-shadow: 0 2px 8px rgba(245, 158, 11, .1);
+  animation: fadeSlideUp .3s ease-out;
+}
+
+.backup-reminder__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: rgba(245, 158, 11, .15);
+  border-radius: 10px;
+  color: #d97706;
+  flex-shrink: 0;
+}
+
+.backup-reminder__content {
+  flex: 1;
+  min-width: 0;
+}
+
+.backup-reminder__title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #92400e;
+  margin-bottom: 2px;
+}
+
+.backup-reminder__desc {
+  font-size: 11px;
+  color: #a16207;
+}
+
+.backup-reminder__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 14px;
+  background: #f59e0b;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all .15s;
+}
+
+.backup-reminder__btn:active {
+  transform: scale(.96);
+  background: #d97706;
+}
+
+.backup-reminder__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  color: #a16207;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all .15s;
+}
+
+.backup-reminder__close:hover {
+  background: rgba(0, 0, 0, .05);
+}
+
+.backup-reminder__close:active {
+  transform: scale(.9);
+}

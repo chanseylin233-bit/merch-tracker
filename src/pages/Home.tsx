@@ -4,6 +4,7 @@ import { ClipboardList, Sparkles, CreditCard, PartyPopper } from 'lucide-react'
 import { useApp } from '../context/AppContext'
 import { useTodoGroups, useActiveOrders } from '../hooks/useOrders'
 import { OrderCard } from '../components/OrderCard'
+import { BackupReminder } from '../components/BackupReminder'
 import { formatMoney } from '../utils/format'
 import { isTerminated } from '../utils/orders'
 import './Home.css'
@@ -51,6 +52,9 @@ export function HomePage() {
         </div>
         <div className="home__sub">{year}年 · 共 {state.orders.length} 笔记录</div>
       </div>
+
+      {/* 备份提醒 */}
+      <BackupReminder />
 
       {/* 三张统计卡片 */}
       <div className="home__overview stagger-container">

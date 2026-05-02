@@ -176,5 +176,7 @@ export interface AppState {
   orders: Order[]
   customProductTypes: string[]
   lastExportTime?: string
+  lastBackupTime?: string    // 上次备份时间（用户确认备份后更新）
+  backupReminderDismissed?: string  // 备份提醒关闭时间
   theme: Theme
 }
