@@ -58,9 +58,9 @@
   font-weight: 500;
 }
 .order-card__tag--type {
-  background: var(--primary-soft);
-  color: var(--primary-mid);
-  border-color: rgba(167,139,250,.18);
+  background: rgba(167, 139, 170, 0.15);
+  color: #7c6d7f;
+  border-color: rgba(167, 139, 170, 0.25);
 }
 
 .order-card__meta {
