@@ -223,6 +223,29 @@ body[data-theme='clean-purple'] {
   --border: #e2e8f0;
 }
 
+/* clean-purple 图标徽章 — 紫色系 */
+body[data-theme='clean-purple'] .icon-badge {
+  background: #ede9fe;
+  border-color: #7c3aed;
+}
+body[data-theme='clean-purple'] .icon-badge svg {
+  stroke: #7c3aed;
+}
+body[data-theme='clean-purple'] .icon-badge--purple {
+  background: #ddd6fe;
+  border-color: #6d28d9;
+}
+body[data-theme='clean-purple'] .icon-badge--purple svg {
+  stroke: #6d28d9;
+}
+body[data-theme='clean-purple'] .icon-badge--blue {
+  background: #dbeafe;
+  border-color: #2563eb;
+}
+body[data-theme='clean-purple'] .icon-badge--blue svg {
+  stroke: #2563eb;
+}
+
 /* ══════════════════════════════════════
    clean-purple 主题：组件级覆盖
    ══════════════════════════════════════ */
@@ -609,6 +632,29 @@ body[data-journal] .form-select:focus,
 body[data-journal] .form-textarea:focus {
   border-color: #7a9e7e;
   box-shadow: 0 0 0 3px rgba(122,158,126,.12);
+}
+
+/* journal 图标徽章 — 绿色系（手账本风格） */
+body[data-journal] .icon-badge {
+  background: #eaf0e8;
+  border-color: #5a8a6a;
+}
+body[data-journal] .icon-badge svg {
+  stroke: #5a8a6a;
+}
+body[data-journal] .icon-badge--purple {
+  background: #efe8f0;
+  border-color: #8b6aa0;
+}
+body[data-journal] .icon-badge--purple svg {
+  stroke: #8b6aa0;
+}
+body[data-journal] .icon-badge--blue {
+  background: #e8f0f0;
+  border-color: #6a9a9a;
+}
+body[data-journal] .icon-badge--blue svg {
+  stroke: #6a9a9a;
 }
 
 /* 页面标题 — 手写体感 */
