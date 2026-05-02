@@ -13,7 +13,7 @@ export function OrderCard({ order, onClick }: Props) {
   const finalCost = order.paidAmount - order.refundedAmount
 
   return (
-    <div className="order-card" onClick={() => onClick?.(order.id)}>
+    <div className="order-card card-press" onClick={() => onClick?.(order.id)}>
       <div className="order-card__header">
         <span className="order-card__title">{order.title}</span>
         <span

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { ShoppingBag, CreditCard, Clock, RefreshCw, Package, Moon } from 'lucide-react'
 import { useYearStats, useMaxMonthlyPaid, useMaxTypePaid, MACARON } from '../hooks/useStats'
 import { formatMoney } from '../utils/format'
@@ -10,6 +10,8 @@ import './Stats.css'
 
 export function StatsPage() {
   const [viewYear, setViewYear] = useState(new Date().getFullYear())
+  const [hoveredMonth, setHoveredMonth] = useState<number | null>(null)
+  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 })
   
   const stats = useYearStats(viewYear)
   const maxMonthly = useMaxMonthlyPaid(viewYear)
@@ -23,6 +25,9 @@ export function StatsPage() {
     const csv = exportCSV(state.orders)
     downloadFile(csv, `merch-tracker-${viewYear}.csv`, 'text/csv')
   }
+
+  // 存储绘图参数用于悬停计算
+  const chartParamsRef = useRef<{ pad: { top: number; right: number; bottom: number; left: number }; cW: number; cH: number } | null>(null)
 
   // 折线图绘制
   useEffect(() => {
@@ -42,6 +47,9 @@ export function StatsPage() {
     const pad = { top: 10, right: 10, bottom: 24, left: 36 }
     const cW = W - pad.left - pad.right
     const cH = H - pad.top - pad.bottom
+
+    // 存储参数供悬停使用
+    chartParamsRef.current = { pad, cW, cH }
 
     ctx.clearRect(0, 0, W, H)
 
@@ -65,17 +73,57 @@ export function StatsPage() {
     // X轴月份标签
     stats.monthlyTrend.forEach((m, i) => {
       const x = pad.left + (i / 11) * cW
-      ctx.fillStyle = '#94a3b8'
-      ctx.font = '9px sans-serif'
+      ctx.fillStyle = hoveredMonth === i ? 'var(--primary)' : '#94a3b8'
+      ctx.font = hoveredMonth === i ? 'bold 10px sans-serif' : '9px sans-serif'
       ctx.textAlign = 'center'
       ctx.fillText(m.month.replace('月', ''), x, H - 6)
     })
 
     // 已付折线（粉色）
-    drawLine(ctx, stats.monthlyTrend, m => m.paid, maxMonthly, '#f5a0b0', pad, cW, cH)
+    drawLine(ctx, stats.monthlyTrend, m => m.paid, maxMonthly, '#f5a0b0', pad, cW, cH, hoveredMonth)
     // 净花费折线（蓝色）
-    drawLine(ctx, stats.monthlyTrend, m => m.net, maxMonthly, '#5990d0', pad, cW, cH)
-  }, [stats.monthlyTrend, maxMonthly])
+    drawLine(ctx, stats.monthlyTrend, m => m.net, maxMonthly, '#5990d0', pad, cW, cH, hoveredMonth)
+  }, [stats.monthlyTrend, maxMonthly, hoveredMonth])
+
+  // 鼠标悬停处理
+  const handleCanvasMouseMove = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
+    const canvas = canvasRef.current
+    const params = chartParamsRef.current
+    if (!canvas || !params) return
+
+    const rect = canvas.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const { pad, cW } = params
+
+    // 计算最近的月份索引
+    const monthIndex = Math.round(((x - pad.left) / cW) * 11)
+    if (monthIndex >= 0 && monthIndex < 12) {
+      setHoveredMonth(monthIndex)
+      setTooltipPos({ x: e.clientX - rect.left, y: e.clientY - rect.top })
+    }
+  }, [])
+
+  const handleCanvasMouseLeave = useCallback(() => {
+    setHoveredMonth(null)
+  }, [])
+
+  // 触摸处理（移动端）
+  const handleCanvasTouchMove = useCallback((e: React.TouchEvent<HTMLCanvasElement>) => {
+    const canvas = canvasRef.current
+    const params = chartParamsRef.current
+    if (!canvas || !params || e.touches.length === 0) return
+
+    const rect = canvas.getBoundingClientRect()
+    const touch = e.touches[0]
+    const x = touch.clientX - rect.left
+    const { pad, cW } = params
+
+    const monthIndex = Math.round(((x - pad.left) / cW) * 11)
+    if (monthIndex >= 0 && monthIndex < 12) {
+      setHoveredMonth(monthIndex)
+      setTooltipPos({ x: touch.clientX - rect.left, y: touch.clientY - rect.top })
+    }
+  }, [])
 
   return (
     <div className="stats page-enter">
@@ -172,7 +220,32 @@ export function StatsPage() {
       <div className="stats__card">
         <div className="stats__card-title">📅 月度趋势</div>
         <div className="stats__chart-wrap">
-          <canvas ref={canvasRef} className="stats__line-canvas" />
+          <canvas 
+            ref={canvasRef} 
+            className="stats__line-canvas" 
+            onMouseMove={handleCanvasMouseMove}
+            onMouseLeave={handleCanvasMouseLeave}
+            onTouchMove={handleCanvasTouchMove}
+            onTouchEnd={handleCanvasMouseLeave}
+          />
+          {/* 悬停工具提示 */}
+          {hoveredMonth !== null && stats.monthlyTrend[hoveredMonth] && (
+            <div 
+              className="stats__tooltip" 
+              style={{ 
+                left: Math.min(tooltipPos.x + 10, 240), 
+                top: tooltipPos.y - 60 
+              }}
+            >
+              <div className="stats__tooltip-month">{stats.monthlyTrend[hoveredMonth].month}</div>
+              <div className="stats__tooltip-row stats__tooltip-row--paid">
+                <span className="stats__tooltip-dot" />已付: ¥{formatMoney(stats.monthlyTrend[hoveredMonth].paid)}
+              </div>
+              <div className="stats__tooltip-row stats__tooltip-row--net">
+                <span className="stats__tooltip-dot" />净花费: ¥{formatMoney(stats.monthlyTrend[hoveredMonth].net)}
+              </div>
+            </div>
+          )}
         </div>
         <div className="stats__legend">
           <span className="stats__legend-item">
@@ -301,7 +374,8 @@ function drawLine(
   color: string,
   pad: { top: number; right: number; bottom: number; left: number },
   cW: number,
-  cH: number
+  cH: number,
+  hoveredIdx: number | null = null
 ) {
   if (!data.length) return
   const points = data.map((d, i) => ({
@@ -334,14 +408,37 @@ function drawLine(
   ctx.lineWidth = 2
   ctx.stroke()
 
-  // 数据点
-  points.forEach(p => {
+  // 悬停垂直参考线
+  if (hoveredIdx !== null && hoveredIdx < points.length) {
+    const hp = points[hoveredIdx]
     ctx.beginPath()
-    ctx.arc(p.x, p.y, 2.5, 0, Math.PI * 2)
+    ctx.setLineDash([3, 3])
+    ctx.moveTo(hp.x, pad.top)
+    ctx.lineTo(hp.x, pad.top + cH)
+    ctx.strokeStyle = 'rgba(148,163,184,.35)'
+    ctx.lineWidth = 1
+    ctx.stroke()
+    ctx.setLineDash([])
+  }
+
+  // 数据点
+  points.forEach((p, i) => {
+    const isHovered = hoveredIdx === i
+    const radius = isHovered ? 5 : 2.5
+    ctx.beginPath()
+    ctx.arc(p.x, p.y, radius, 0, Math.PI * 2)
     ctx.fillStyle = color
     ctx.fill()
     ctx.strokeStyle = '#fff'
-    ctx.lineWidth = 1
+    ctx.lineWidth = isHovered ? 2.5 : 1
     ctx.stroke()
+
+    // 悬停时外圈光晕
+    if (isHovered) {
+      ctx.beginPath()
+      ctx.arc(p.x, p.y, 9, 0, Math.PI * 2)
+      ctx.fillStyle = color + '18'
+      ctx.fill()
+    }
   })
 }
