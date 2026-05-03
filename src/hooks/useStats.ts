@@ -13,6 +13,12 @@ export interface YearStats {
   pendingRefund: number
 }
 
+export interface MonthlyEntry {
+  month: string
+  paid: number
+  net: number
+}
+
 export interface Stats {
   year: YearStats
   month: YearStats
@@ -22,13 +28,19 @@ export interface Stats {
   byChar: Array<[string, { count: number; paid: number }]>
   byStatus: Array<[string, number]>
   byGroup: Array<[string, { count: number; paid: number }]>
-  monthlyTrend: Array<{ month: string; paid: number; net: number }>
+  monthlyTrend: MonthlyEntry[]
+}
+
+/** 提取付款日期（兼容 datetime-local 和纯日期格式） */
+function paymentMonth(dateStr: string): string {
+  const d = new Date(dateStr.replace(' ', 'T'))
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
 }
 
 /** 年度统计 */
 export function useYearStats(year: number): Stats {
   const { state } = useApp()
-  
+
   return useMemo(() => {
     const now = new Date()
     const currentYear = now.getFullYear()
@@ -67,7 +79,7 @@ export function useYearStats(year: number): Stats {
       byType[o.productType].netCost += o.paidAmount - o.refundedAmount
     })
 
-    // 按角色标签
+    // 按角色标签（paidAmount 均分）
     const byChar: Record<string, { count: number; paid: number }> = {}
     yearOrders.forEach(o => {
       o.characterTags.forEach(t => {
@@ -92,13 +104,39 @@ export function useYearStats(year: number): Stats {
       byGroup[g].paid += o.paidAmount
     })
 
-    // 月度趋势
-    const monthlyTrend: Array<{ month: string; paid: number; net: number }> = []
+    // 月度趋势（按付款日期统计，而非创建日期）
+    // 遍历所有付款记录，按月份聚合已付和已退金额
+    const monthlyMap: Record<string, { paid: number; refunded: number }> = {}
     for (let m = 1; m <= 12; m++) {
-      const mOrders = yearOrders.filter(o => new Date(o.createdAt).getMonth() + 1 === m)
-      const paid = mOrders.reduce((s, o) => s + o.paidAmount, 0)
-      const refunded = mOrders.reduce((s, o) => s + o.refundedAmount, 0)
-      monthlyTrend.push({ month: `${m}月`, paid, net: paid - refunded })
+      monthlyMap[`${year}-${String(m).padStart(2, '0')}`] = { paid: 0, refunded: 0 }
+    }
+
+    state.orders.forEach(o => {
+      // 付款记录
+      o.payments.forEach(p => {
+        const pMonth = paymentMonth(p.date)
+        if (pMonth.startsWith(String(year))) {
+          if (monthlyMap[pMonth]) monthlyMap[pMonth].paid += p.amount
+        }
+      })
+      // 退款记录
+      o.refunds.forEach(r => {
+        const rMonth = paymentMonth(r.date)
+        if (rMonth.startsWith(String(year))) {
+          if (monthlyMap[rMonth]) monthlyMap[rMonth].refunded += r.amount
+        }
+      })
+    })
+
+    const monthlyTrend: MonthlyEntry[] = []
+    for (let m = 1; m <= 12; m++) {
+      const key = `${year}-${String(m).padStart(2, '0')}`
+      const data = monthlyMap[key]
+      monthlyTrend.push({
+        month: `${m}月`,
+        paid: data?.paid ?? 0,
+        net: (data?.paid ?? 0) - (data?.refunded ?? 0),
+      })
     }
 
     return {
@@ -129,7 +167,7 @@ export function useYearStats(year: number): Stats {
   }, [state.orders, year])
 }
 
-/** 获取最大月度花费 */
+/** 获取最大月度花费（供图表 Y 轴上限） */
 export function useMaxMonthlyPaid(year: number): number {
   const stats = useYearStats(year)
   return Math.max(...stats.monthlyTrend.map(m => m.paid), 1)

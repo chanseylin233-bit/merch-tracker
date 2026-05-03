@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ClipboardList, SlidersHorizontal, Check, AlertTriangle, Sparkles } from 'lucide-react'
 import { useApp } from '../context/AppContext'
@@ -14,18 +14,27 @@ import './Records.css'
 export function RecordsPage() {
   const { state, dispatch } = useApp()
   const navigate = useNavigate()
-  
+
   const [filterOpen, setFilterOpen] = useState(false)
-  const [filters, setFilters] = useState<FilterState>({ 
-    status: '全部', 
-    productType: '全部', 
-    year: '全部', 
-    keyword: '', 
+  const [filters, setFilters] = useState<FilterState>({
+    status: '全部',
+    productType: '全部',
+    year: '全部',
+    keyword: '',
     characterTag: '',
     showIncomplete: false
   })
+  const [searchInput, setSearchInput] = useState('')
+  // 搜索防抖 200ms
   const [search, setSearch] = useState('')
-  
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    if (debounceRef.current) clearTimeout(debounceRef.current)
+    debounceRef.current = setTimeout(() => setSearch(searchInput), 200)
+    return () => { if (debounceRef.current) clearTimeout(debounceRef.current) }
+  }, [searchInput])
+
   // 批量改状态弹窗
   const [batchStatusTab, setBatchStatusTab] = useState<'flow' | 'terminated'>('flow')
   const [batchStatusOpen, setBatchStatusOpen] = useState(false)
@@ -34,11 +43,11 @@ export function RecordsPage() {
   // 批量操作状态
   const [selectMode, setSelectMode] = useState(false)
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
-  
-  // 使用组合 hook（筛选 + 搜索叠加）
+
+  // 使用组合 hook(筛选 + 搜索叠加)
   const displayList = useFilteredAndSearchOrders(filters, search)
   const allCharTags = useCharacterTags()
-  
+
   // 容量监控
   const storage = getStorageUsage()
   const showCapacityWarning = storage.percent > 0.8
@@ -59,7 +68,7 @@ export function RecordsPage() {
 
   const batchDelete = () => {
     if (selectedIds.size === 0) return
-    if (!confirm(`确定删除选中的 ${selectedIds.size} 条记录吗？`)) return
+    if (!confirm(`确定删除选中的 ${selectedIds.size} 条记录吗?`)) return
     dispatch({ type: 'BATCH_DELETE', ids: [...selectedIds] })
     setSelectedIds(new Set())
     setSelectMode(false)
@@ -78,10 +87,10 @@ export function RecordsPage() {
     const kept = cleanupOldData(state.orders, 12)
     const removed = state.orders.length - kept.length
     if (removed === 0) {
-      alert('无需清理，所有记录都在保留期内')
+      alert('无需清理,所有记录都在保留期内')
       return
     }
-    if (!confirm(`将删除 ${removed} 条超过12个月的已完成记录，确定吗？`)) return
+    if (!confirm(`将删除 ${removed} 条超过12个月的已完成记录,确定吗?`)) return
     dispatch({ type: 'IMPORT_DATA', state: { ...state, orders: kept } })
   }
 
@@ -104,7 +113,7 @@ export function RecordsPage() {
             拼团记录
             <Sparkles size={16} className="records__title-sparkle" />
           </div>
-          <button 
+          <button
             className={`records__select-btn ${selectMode ? 'active' : ''}`}
             onClick={() => {
               setSelectMode(!selectMode)
@@ -114,13 +123,13 @@ export function RecordsPage() {
             <Check size={14} /> 多选
           </button>
         </div>
-        
+
         <div className="records__toolbar">
-          <input 
-            className="records__search" 
-            placeholder="搜索订单…" 
-            value={search} 
-            onChange={e => setSearch(e.target.value)} 
+          <input
+            className="records__search"
+            placeholder="搜索订单..."
+            value={searchInput}
+            onChange={e => setSearchInput(e.target.value)}
           />
           <button className="records__filter-btn" onClick={() => setFilterOpen(true)}>
             <span className="icon-badge icon-badge--sm" style={{'--bg':'#ede7f6','--border':'#6b21a8','--stroke':'#6b21a8'} as React.CSSProperties}>
@@ -128,7 +137,7 @@ export function RecordsPage() {
             </span> 筛选{activeFilterCount > 0 ? ` (${activeFilterCount})` : ''}
           </button>
         </div>
-        
+
         {activeFilterCount > 0 && (
           <div className="records__active-filters">
             {filters.status !== '全部' && <span className="records__active-chip">{filters.status}</span>}
@@ -162,8 +171,8 @@ export function RecordsPage() {
                   onChange={() => toggleSelect(o.id)}
                 />
               )}
-              <div 
-                className="records__card-wrap" 
+              <div
+                className="records__card-wrap"
                 onClick={() => !selectMode && navigate(`/detail/${o.id}`)}
               >
                 <OrderCard order={o} onClick={() => {}} />
@@ -182,15 +191,15 @@ export function RecordsPage() {
             <span className="records__batch-count">已选 {selectedIds.size} 项</span>
           </div>
           <div className="records__batch-actions">
-            <button 
-              className="records__batch-btn" 
+            <button
+              className="records__batch-btn"
               disabled={selectedIds.size === 0}
               onClick={() => setBatchStatusOpen(true)}
             >
               改状态
             </button>
-            <button 
-              className="records__batch-btn records__batch-btn--danger" 
+            <button
+              className="records__batch-btn records__batch-btn--danger"
               disabled={selectedIds.size === 0}
               onClick={batchDelete}
             >

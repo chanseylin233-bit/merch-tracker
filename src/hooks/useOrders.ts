@@ -1,13 +1,14 @@
 import { useMemo } from 'react'
 import { useApp } from '../context/AppContext'
 import type { Order } from '../types'
-import { 
-  filterOrders, 
-  getTodoGroups, 
-  isTerminated, 
-  isDeadlineSoon, 
+import {
+  filterOrders,
+  searchOrders,
+  getTodoGroups,
+  isTerminated,
+  isDeadlineSoon,
   isStale,
-  type FilterState 
+  type FilterState
 } from '../utils/orders'
 
 /** 筛选订单 */
@@ -19,37 +20,17 @@ export function useFilteredOrders(filters: FilterState) {
   )
 }
 
-/** 搜索订单（内部辅助函数） */
-function searchOrders(orders: Order[], keyword: string): Order[] {
-  if (!keyword) return orders
-  const kw = keyword.toLowerCase()
-  return orders.filter(o =>
-    o.title.toLowerCase().includes(kw) ||
-    o.leader?.toLowerCase().includes(kw) ||
-    o.groupName?.toLowerCase().includes(kw) ||
-    o.note?.toLowerCase().includes(kw) ||
-    o.characterTags.some(t => t.toLowerCase().includes(kw))
-  )
-}
-
-/** 搜索订单（独立使用） */
-export function useSearchOrders(keyword: string) {
-  const { state } = useApp()
-  return useMemo(
-    () => searchOrders(state.orders, keyword),
-    [state.orders, keyword]
-  )
-}
-
-/** 筛选 + 搜索组合（支持叠加） */
+/**
+ * 筛选 + 搜索组合
+ * filterOrders 处理：status / productType / year / characterTag
+ * searchOrders 处理：keyword（title / leader / groupName / note / characterTags）
+ * 两者职责明确，无重复搜索
+ */
 export function useFilteredAndSearchOrders(filters: FilterState, keyword: string) {
   const { state } = useApp()
   return useMemo(() => {
-    // 先应用筛选条件
-    let result = filterOrders(state.orders, filters)
-    // 再应用搜索关键词
-    result = searchOrders(result, keyword)
-    return result
+    const filtered = filterOrders(state.orders, filters)
+    return searchOrders(filtered, keyword)
   }, [state.orders, filters, keyword])
 }
 
@@ -103,8 +84,7 @@ export function useCharacterTags() {
 export function useRecentCharacterTags(limit: number = 20) {
   const { state } = useApp()
   return useMemo(() => {
-    // 收集每个标签的最近使用时间
-    const tagMap = new Map<string, string>() // tag -> latest updatedAt
+    const tagMap = new Map<string, string>()
     state.orders.forEach(o => {
       o.characterTags.forEach(t => {
         const existing = tagMap.get(t)
@@ -113,7 +93,6 @@ export function useRecentCharacterTags(limit: number = 20) {
         }
       })
     })
-    // 按最近使用时间降序排列
     return [...tagMap.entries()]
       .sort((a, b) => b[1].localeCompare(a[1]))
       .slice(0, limit)
