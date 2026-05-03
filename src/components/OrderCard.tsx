@@ -1,6 +1,7 @@
 import type { Order } from '../types'
 import { STATUS_COLORS, NEXT_ACTION_MAP } from '../types'
 import { isCompleted } from '../utils/orders'
+import { formatTime } from '../utils/format'
 import './OrderCard.css'
 
 interface Props {
@@ -57,7 +58,7 @@ export function OrderCard({ order, onClick }: Props) {
       </div>
 
       <div className="order-card__time">
-        更新于 {order.lastUpdateTime}
+        更新于 {formatTime(order.lastUpdateTime)}
       </div>
     </div>
   )

@@ -4,8 +4,7 @@ import { useYearStats, MACARON } from '../hooks/useStats'
 import { formatMoney } from '../utils/format'
 import { useApp } from '../context/AppContext'
 import { STATUS_COLORS } from '../types'
-import { exportCSV } from '../utils/storage'
-import { downloadFile } from '../utils/storage'
+import { exportCSV, downloadFile } from '../utils/storage'
 import './Stats.css'
 
 export function StatsPage() {

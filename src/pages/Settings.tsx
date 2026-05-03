@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import { Palette, BarChart3, Cloud, FolderOpen, Trash2, AlertTriangle, Info } from 'lucide-react'
 import { useApp } from '../context/AppContext'
 import { DEFAULT_PRODUCT_TYPES } from '../types'
+import packageJson from '../../package.json'
 import './Settings.css'
 
 export function SettingsPage() {
@@ -281,7 +282,7 @@ export function SettingsPage() {
         <p className="settings__about">
           苏茜周边拼团记录工具<br />
           数据存储在浏览器本地，请定期备份。<br />
-          版本：1.1.0
+          版本：{packageJson.version}
         </p>
       </div>
     </div>
