@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { RefundRecord } from '../../types'
-import { genId } from '../../utils/format'
+import { genId, formatDate } from '../../utils/format'
 import './RefundSection.css'
 
 interface Props {
@@ -88,7 +88,7 @@ export function RefundSection({ refunds, onAdd }: Props) {
               <div className="refund-section__type">{r.reason}</div>
               {r.note && <div className="refund-section__note">{r.note}</div>}
               <div className="refund-section__date">
-                {r.date} {r.received ? '✓ 已到账' : '⏳ 未到账'}
+                {formatDate(r.date)} {r.received ? '✓ 已到账' : '⏳ 未到账'}
               </div>
             </div>
             <div className="refund-section__amount">+¥{r.amount.toFixed(2)}</div>

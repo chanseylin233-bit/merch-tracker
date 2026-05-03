@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { PaymentRecord } from '../../types'
-import { genId } from '../../utils/format'
+import { genId, formatDate } from '../../utils/format'
 import './PaymentSection.css'
 
 interface Props {
@@ -85,7 +85,7 @@ export function PaymentSection({ payments, onAdd }: Props) {
             <div>
               <div className="payment-section__type">{p.type}</div>
               {p.note && <div className="payment-section__note">{p.note}</div>}
-              <div className="payment-section__date">{p.date}</div>
+              <div className="payment-section__date">{formatDate(p.date)}</div>
             </div>
             <div className="payment-section__amount">-¥{p.amount.toFixed(2)}</div>
           </div>

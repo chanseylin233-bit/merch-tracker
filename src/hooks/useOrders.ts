@@ -27,6 +27,7 @@ function searchOrders(orders: Order[], keyword: string): Order[] {
     o.title.toLowerCase().includes(kw) ||
     o.leader?.toLowerCase().includes(kw) ||
     o.groupName?.toLowerCase().includes(kw) ||
+    o.note?.toLowerCase().includes(kw) ||
     o.characterTags.some(t => t.toLowerCase().includes(kw))
   )
 }
