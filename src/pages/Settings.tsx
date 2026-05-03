@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react'
-import { Palette, BarChart3, Cloud, FolderOpen, Trash2, AlertTriangle, Info } from 'lucide-react'
+import { useState, useRef, useEffect } from 'react'
+import { Palette, BarChart3, Cloud, FolderOpen, Trash2, AlertTriangle, Info, RefreshCw } from 'lucide-react'
 import { useApp } from '../context/AppContext'
 import { DEFAULT_PRODUCT_TYPES } from '../types'
 import packageJson from '../../package.json'
@@ -12,7 +12,23 @@ export function SettingsPage() {
   const [importText, setImportText] = useState('')
   const [importPreview, setImportPreview] = useState<{ orders: number; types: number; valid: boolean } | null>(null)
   const [dragOver, setDragOver] = useState(false)
+  const [swStatus, setSwStatus] = useState<string>('checking...')
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // 检查 Service Worker 状态
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(regs => {
+        if (regs.length > 0) {
+          setSwStatus(`已注册 (${regs.length}个)`)
+        } else {
+          setSwStatus('未注册')
+        }
+      }).catch(() => setSwStatus('检查失败'))
+    } else {
+      setSwStatus('浏览器不支持')
+    }
+  }, [])
 
   const handleAddType = () => {
     const t = newType.trim()
@@ -26,14 +42,26 @@ export function SettingsPage() {
   }
 
   const handleExport = () => {
-    const data = JSON.stringify(state, null, 2)
-    const blob = new Blob([data], { type: 'application/json' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = `merch-tracker-backup-${new Date().toISOString().slice(0, 10)}.json`
-    a.click()
-    URL.revokeObjectURL(url)
+    try {
+      const data = JSON.stringify(state, null, 2)
+      if (!data) throw new Error('数据为空')
+      
+      const blob = new Blob([data], { type: 'application/json' })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `merch-tracker-backup-${new Date().toISOString().slice(0, 10)}.json`
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      URL.revokeObjectURL(url)
+      
+      // 更新最后备份时间
+      dispatch({ type: 'MARK_BACKUP' })
+      alert('备份导出成功！')
+    } catch (e: any) {
+      alert(`备份失败：${e.message || '未知错误'}`)
+    }
   }
 
   const parseImport = (text: string) => {
@@ -66,7 +94,7 @@ export function SettingsPage() {
       setImportPreview(null)
       alert(`导入成功！共 ${data.orders.length} 条记录`)
     } catch (e: any) {
-      alert('导入失败：' + e.message)
+      alert('导入失败：' + (e.message || '未知错误'))
     }
   }
 
@@ -81,6 +109,7 @@ export function SettingsPage() {
       parseImport(text)
       setShowImport(true)
     }
+    reader.onerror = () => alert('文件读取失败')
     reader.readAsText(file)
   }
 
@@ -105,6 +134,29 @@ export function SettingsPage() {
       if (confirm('再次确认：真的要清空所有记录吗？')) {
         dispatch({ type: 'CLEAR_ALL' })
       }
+    }
+  }
+
+  // 清除 Service Worker 缓存
+  const handleClearCache = async () => {
+    if (!('serviceWorker' in navigator)) {
+      alert('当前浏览器不支持 Service Worker')
+      return
+    }
+    try {
+      const regs = await navigator.serviceWorker.getRegistrations()
+      for (const reg of regs) {
+        await reg.unregister()
+      }
+      // 清除所有缓存
+      if ('caches' in window) {
+        const keys = await caches.keys()
+        await Promise.all(keys.map(key => caches.delete(key)))
+      }
+      setSwStatus('已清除')
+      alert('缓存已清除！请刷新页面。')
+    } catch (e: any) {
+      alert(`清除失败：${e.message || '未知错误'}`)
     }
   }
 
@@ -260,6 +312,24 @@ export function SettingsPage() {
             </button>
           </div>
         )}
+      </div>
+
+      {/* 缓存管理 */}
+      <div className="settings__card">
+        <div className="settings__card-header">
+          <span className="settings__card-icon settings__card-icon--purple"><span className="icon-badge icon-badge--sm"><RefreshCw size={15} /></span></span>
+          <span className="settings__card-title">缓存管理</span>
+        </div>
+        <div className="settings__stat">
+          <span>Service Worker 状态</span>
+          <span className="settings__stat-value">{swStatus}</span>
+        </div>
+        <button className="settings__btn settings__btn--outline-purple" onClick={handleClearCache}>
+          <RefreshCw size={14} /> 清除缓存并刷新
+        </button>
+        <div className="settings__hint" style={{ marginTop: 8, fontSize: 12, color: 'var(--text-hint)' }}>
+          如果页面显示异常，尝试清除缓存后刷新页面
+        </div>
       </div>
 
       {/* 危险操作 */}
