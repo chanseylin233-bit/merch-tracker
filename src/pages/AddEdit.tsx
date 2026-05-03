@@ -252,16 +252,16 @@ export function AddEditPage() {
 
     if (isEdit) {
       dispatch({ type: 'UPDATE_ORDER', order })
+      // 编辑模式：提交后不再追踪表单变化，因为已导航离开
+      savedRef.current = '__submitted__'
+      setHasChanged(false)
     } else {
       dispatch({ type: 'ADD_ORDER', order })
+      savedRef.current = '__submitted__'
+      setHasChanged(false)
+      clearDraft()
+      resetForm()  // 新增后重置表单
     }
-    savedRef.current = form.title + '|' + form.productType + '|' + form.quantity + '|' +
-      form.groupName + '|' + form.leader + '|' + form.batch + '|' +
-      form.paidAmount + '|' + form.pendingAmount + '|' + form.status + '|' + form.note +
-      '|' + form.characterTags.join(',')
-    setHasChanged(false)
-    clearDraft()
-    if (!isEdit) resetForm()  // 新增后重置表单
     navigate(`/detail/${order.id}`)
   }
 

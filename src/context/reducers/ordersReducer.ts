@@ -2,7 +2,7 @@ import type { Order, OrderStatus, PaymentRecord, RefundRecord, ProgressEntry } f
 import { NEXT_ACTION_MAP } from '../../types'
 import { now } from '../../utils/storage'
 
-type OrderAction =
+export type OrderAction =
   | { type: 'ADD_ORDER'; order: Order }
   | { type: 'UPDATE_ORDER'; order: Order }
   | { type: 'DELETE_ORDER'; id: string }

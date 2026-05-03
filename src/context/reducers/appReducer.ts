@@ -1,6 +1,6 @@
 import type { AppState } from '../../types'
 import { DEFAULT_PRODUCT_TYPES, type Theme } from '../../types'
-import { ordersReducer } from './ordersReducer'
+import { ordersReducer, type OrderAction } from './ordersReducer'
 
 type AppAction =
   | { type: 'ADD_ORDER'; order: AppState['orders'][0] }
@@ -17,59 +17,53 @@ type AppAction =
   | { type: 'ADD_PRODUCT_TYPE'; name: string }
   | { type: 'REMOVE_PRODUCT_TYPE'; name: string }
   | { type: 'SET_THEME'; theme: Theme }
-  | { type: 'MARK_BACKUP' }  // 标记已备份
-  | { type: 'DISMISS_BACKUP_REMINDER' }  // 暂时关闭提醒
+  | { type: 'MARK_BACKUP' }
+  | { type: 'DISMISS_BACKUP_REMINDER' }
+
+// ── Order操作集（AppAction 与 OrderAction 的交集） ─────────────
+const ORDER_ACTION_TYPES = new Set([
+  'ADD_ORDER', 'UPDATE_ORDER', 'DELETE_ORDER', 'BATCH_DELETE',
+  'SET_STATUS', 'BATCH_SET_STATUS', 'ADD_PAYMENT', 'ADD_REFUND', 'ADD_PROGRESS',
+])
+
+/** Type guard：缩小 AppAction 到 OrderAction 子集 */
+function isOrderAction(action: AppAction): action is OrderAction {
+  return ORDER_ACTION_TYPES.has(action.type)
+}
 
 export function appReducer(state: AppState, action: AppAction): AppState {
   switch (action.type) {
     case 'IMPORT_DATA':
       return action.state
-      
+
     case 'CLEAR_ALL':
-      return {
-        ...state,
-        orders: [],
-      }
-      
-    case 'ADD_PRODUCT_TYPE':
-      if (state.customProductTypes.includes(action.name) || DEFAULT_PRODUCT_TYPES.includes(action.name)) {
-        return state
-      }
-      return {
-        ...state,
-        customProductTypes: [...state.customProductTypes, action.name],
-      }
-      
+      return { ...state, orders: [] }
+
+    case 'ADD_PRODUCT_TYPE': {
+      if (state.customProductTypes.includes(action.name) || DEFAULT_PRODUCT_TYPES.includes(action.name)) return state
+      return { ...state, customProductTypes: [...state.customProductTypes, action.name] }
+    }
+
     case 'REMOVE_PRODUCT_TYPE':
-      return {
-        ...state,
-        customProductTypes: state.customProductTypes.filter(t => t !== action.name),
-      }
+      return { ...state, customProductTypes: state.customProductTypes.filter(t => t !== action.name) }
 
     case 'SET_THEME':
-      return {
-        ...state,
-        theme: action.theme,
-      }
-      
+      return { ...state, theme: action.theme }
+
     case 'MARK_BACKUP':
-      return {
-        ...state,
-        lastBackupTime: new Date().toISOString(),
-        backupReminderDismissed: undefined,
-      }
-      
+      return { ...state, lastBackupTime: new Date().toISOString(), backupReminderDismissed: undefined }
+
     case 'DISMISS_BACKUP_REMINDER':
-      return {
-        ...state,
-        backupReminderDismissed: new Date().toISOString(),
+      return { ...state, backupReminderDismissed: new Date().toISOString() }
+
+    // 订单相关操作：isOrderAction narrowing 保证类型安全地传递给 ordersReducer
+    default: {
+      if (isOrderAction(action)) {
+        return { ...state, orders: ordersReducer(state.orders, action) }
       }
-      
-    default:
-      // 所有订单相关操作委托给 ordersReducer
-      return {
-        ...state,
-        orders: ordersReducer(state.orders, action as any),
-      }
+      // 穷尽性检查：新增 AppAction 但未加入上方 case 时，编译器报错
+      void (action satisfies never)
+      return state
+    }
   }
 }
