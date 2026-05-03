@@ -4,7 +4,6 @@ const STORAGE_KEY = 'susie-merch-tracker'
 const STORAGE_QUOTA = 4 * 1024 * 1024 // 4MB
 
 export function loadState(): AppState {
-  const STORAGE_KEY = 'susie-merch-tracker'
   const raw = localStorage.getItem(STORAGE_KEY)
   if (!raw) return emptyState()
 
@@ -88,14 +87,14 @@ export function getStorageUsage(): { used: number; quota: number; percent: numbe
 export function saveState(state: AppState): { success: boolean; error?: string } {
   const data = JSON.stringify(state)
   const size = data.length * 2
-  
+
   if (size > STORAGE_QUOTA) {
-    return { 
-      success: false, 
-      error: `存储空间不足！当前 ${size} > 限制 ${STORAGE_QUOTA}。请导出数据后清理。` 
+    return {
+      success: false,
+      error: `存储空间不足！当前 ${size} > 限制 ${STORAGE_QUOTA}。请导出数据后清理。`
     }
   }
-  
+
   try {
     localStorage.setItem(STORAGE_KEY, data)
     return { success: true }

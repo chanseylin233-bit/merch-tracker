@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import type { ProgressEntry, OrderStatus } from '../../types'
 import { ALL_STATUSES, STATUS_COLORS } from '../../types'
-import { formatTime } from '../../utils/format'
-import { genId } from '../../utils/format'
+import { formatTime, genId } from '../../utils/format'
 import './ProgressSection.css'
 
 interface Props {
@@ -22,7 +21,7 @@ export function ProgressSection({ progressLog, currentStatus, onAdd }: Props) {
       status: form.status as OrderStatus,
       note: form.note || undefined,
     })
-    
+
     setShowForm(false)
     setForm({ status: currentStatus, note: '' })
   }
