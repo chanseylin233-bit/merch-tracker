@@ -1,5 +1,5 @@
 import type { Order } from '../types'
-import { STATUS_COLORS, NEXT_ACTION_MAP } from '../types'
+import { NEXT_ACTION_MAP } from '../types'
 import { isCompleted } from '../utils/orders'
 import { formatTime } from '../utils/format'
 import './OrderCard.css'
@@ -41,7 +41,11 @@ export function OrderCard({ order, onClick }: Props) {
         <span className="order-card__title">{order.title}</span>
         <span
           className="status-tag"
-          style={{ background: STATUS_COLORS[order.status] ?? '#718096' }}
+          style={{
+            background: MORANDI_COLORS[getColorIndex(order.status)].bg,
+            color: MORANDI_COLORS[getColorIndex(order.status)].text,
+            borderColor: MORANDI_COLORS[getColorIndex(order.status)].border,
+          }}
         >
           {order.status}
         </span>
