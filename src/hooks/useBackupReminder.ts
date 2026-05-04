@@ -22,9 +22,9 @@ export function useBackupReminder() {
     const hasRealData = state.orders.length >= 3 && daysSinceFirstOrder >= 3
     const neverBackedUp = hasRealData && !state.lastBackupTime
     
-    // 超过 7 天未备份
-    const daysSinceBackup = (now - lastBackup) / (1000 * 60 * 60 * 24)
-    const overdue = daysSinceBackup >= BACKUP_INTERVAL_DAYS
+    // 超过 7 天未备份（仅在有过备份记录时才计算）
+    const daysSinceBackup = lastBackup > 0 ? (now - lastBackup) / (1000 * 60 * 60 * 24) : 0
+    const overdue = lastBackup > 0 && daysSinceBackup >= BACKUP_INTERVAL_DAYS
     
     // 最近关闭过提醒（1 天内不再提醒）
     const daysSinceDismiss = (now - dismissedAt) / (1000 * 60 * 60 * 24)
